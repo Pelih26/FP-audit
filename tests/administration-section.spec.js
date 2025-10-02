@@ -4,10 +4,13 @@ import { skip } from 'node:test';
 // Импорт Faker с русской локалью 
 import { fa, fakerRU as faker } from '@faker-js/faker'
 
-let text_input = faker.lorem.text();
-let email = faker.internet.email()
-let firstName = faker.person.firstName()
-let fullName = faker.person.fullName()
+let newUser = {
+    text_input: faker.lorem.text(),
+    email: faker.internet.email(),
+    firstName: faker.person.firstName(),
+    fullName: faker.person.fullName(), // генерит и имя и фамилию разом, посмотри исправь
+    fullPassword: faker.internet.password()
+};
 
 test.describe('administration-section', () => {
   test.beforeEach(async ({ page }) => {
@@ -41,31 +44,31 @@ test.describe('administration-section', () => {
     // Создание нового пользователя
     //await page.getByRole('checkbox', { name: 'Активный пользователь' }).uncheck();
     await page.locator('input[name="login"]').click();
-    await page.locator('input[name="login"]').fill(email);
+    await page.locator('input[name="login"]').fill(newUser.email);
     // Вводим email
     await page.getByRole('textbox', { name: 'E-mail', exact: true }).click();
-    await page.getByRole('textbox', { name: 'E-mail', exact: true }).fill(email);
+    await page.getByRole('textbox', { name: 'E-mail', exact: true }).fill(newUser.email);
     // Вводим имя
     await page.locator('#newUserForm').getByRole('textbox', { name: 'Имя' }).click();
-    await page.locator('#newUserForm').getByRole('textbox', { name: 'Имя' }).fill(firstName);
+    await page.locator('#newUserForm').getByRole('textbox', { name: 'Имя' }).fill(newUser.firstName);
       // Вводим фамилию
     await page.locator('#newUserForm').getByRole('textbox', { name: 'Фамилия' }).click();
-    await page.locator('#newUserForm').getByRole('textbox', { name: 'Фамилия' }).fill(fullName);
+    await page.locator('#newUserForm').getByRole('textbox', { name: 'Фамилия' }).fill(newUser.fullName);
       // Вводим должность
     await page.locator('#newUserForm').getByRole('textbox', { name: 'Должность' }).click();
     await page.locator('#newUserForm').getByRole('textbox', { name: 'Должность' }).fill('Продавец');
       // Вводим пароль
     await page.getByRole('textbox', { name: 'Пароль', exact: true }).click();
-    await page.getByRole('textbox', { name: 'Пароль', exact: true }).fill('123456789');
+    await page.getByRole('textbox', { name: 'Пароль', exact: true }).fill(newUser.fullPassword);
     // Поддверждение пароля
     await page.getByRole('textbox', { name: 'Подтвердите пароль' }).click();
-    await page.getByRole('textbox', { name: 'Подтвердите пароль' }).fill('123456789');
+    await page.getByRole('textbox', { name: 'Подтвердите пароль' }).fill(newUser.fullPassword);
     // Выбор бизнес направления
     await page.getByLabel('Select box activate').click();
     await page.getByRole('option', { name: 'Не определено' }).click();
     // Выбор уровня
     await page.getByLabel('Select box activate').click();
-    await page.locator('#ui-select-choices-row-3-1').click();
+    await page.locator('select[name="level"]').selectOption('string:SHOP');  // не работает, не выбирает уровень, просто кликает и всплывает список 
     // Клик создать пользователя
     //await page.getByRole('button', { name: 'Создать пользователя' }).click();
     // Проверка что в строке поиска отображаеться вновь созданых пользователь

@@ -42,7 +42,7 @@ test.only('Class', async ({ page }) => {
     }
         sayDog(){
             const voice = 'Гав'
-            //console.log(voice)
+            console.log(voice)
             return voice
 
         }
@@ -50,5 +50,5 @@ test.only('Class', async ({ page }) => {
 
   let animal = new Animals('ИмяЗмейки');
   console.log(animal)
-  console.log(animal.sayDog())
+  animal.sayDog()
     });
