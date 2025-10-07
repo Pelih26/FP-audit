@@ -1,23 +1,23 @@
 import { test, expect } from '@playwright/test';
-import { get } from 'http';
-import { skip } from 'node:test';
-// Импорт Faker с русской локалью 
-import { fakerRU as faker } from '@faker-js/faker'
+// Импорт Faker с русской локалью
+import { fakerRU as faker } from '@faker-js/faker';
+import { MainPage, CreateUserPage, LoginUser } from '../src/pages/index';
+const url = 'https://audit-dev9.fix-price.ru/#/login';
 
 let text_input = faker.lorem.text();
+let mainPage;
+let loginUser;
 
 test.describe('templates section', () => {
   test.beforeEach(async ({ page }) => {
-    // Добавил общий Timeout что бы тест длилься более 20 сек
-    test.setTimeout(6_0000); 
-    await page.goto('https://audit-dev9.fix-price.ru/#/login');
-    await page.getByRole('button', { name: 'Войти' }).click();
-    await page.locator('#username').fill('admindp');
-    await page.locator('#password').fill('RGa2EGJkaP@X');
-    await page.locator('#kc-login').click();
+    // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
+    test.setTimeout(25_000);
+    mainPage = new MainPage(page);
+    loginUser = new LoginUser(page);
+    await mainPage.open(url);
+    await loginUser.loginKS();
     // Добавил Timeout что бы тест дожидался разблокировки страницы (при стабильном деве достаточно 6 сек)
     await page.waitForTimeout(8_000);
-  
   });
 
   test('test search template, ТК-31423', async ({ page }) => {
@@ -60,5 +60,3 @@ test.describe('templates section', () => {
     await expect(page.locator('tbody')).toContainText('Деактивировать');
   });
 });
-
-
