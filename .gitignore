@@ -9,6 +9,9 @@ node_modules/
 /videos/
 /trace/
 
+# Allure
+allure-report/
+allure-results
 
 # Node.js
 node_modules/

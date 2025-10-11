@@ -1,5 +1,0 @@
-    await page.getByRole('link', { name: 'Шаблоны задач' }).click();
-    await page.getByRole('button', { name: 'Деактивировать' }).first().click();
-    await expect(page.locator('tbody')).toContainText('Активировать');
-    await page.getByRole('button', { name: 'Активировать' }).first().click();
-    await expect(page.locator('tbody')).toContainText('Деактивировать');

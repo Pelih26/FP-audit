@@ -1,12 +1,13 @@
 import { test, expect } from '@playwright/test';
 // Импорт Faker с русской локалью
 import { fakerRU as faker } from '@faker-js/faker';
-import { MainPage, CreateUserPage, LoginUser } from '../src/pages/index';
+import { MainPage, AdministrationUserPage, LoginUser } from '../src/pages/index';
 const url = 'https://audit-dev9.fix-price.ru/#/login';
 
 let text_input = faker.lorem.text();
 let mainPage;
 let loginUser;
+let administrationUserPage;
 
 test.describe('templates section', () => {
   test.beforeEach(async ({ page }) => {

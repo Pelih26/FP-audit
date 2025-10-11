@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "allureGenerate": "allure generate",
+    "allureOpen": "allure open",
     "test": "npx playwright test",
     "debug": "npx playwright test --ui"
   },
@@ -12,7 +14,9 @@
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^10.0.0",
-    "@playwright/test": "^1.55.0",
-    "@types/node": "^24.5.2"
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^24.5.2",
+    "allure-commandline": "^2.34.1",
+    "allure-playwright": "^3.4.1"
   }
 }

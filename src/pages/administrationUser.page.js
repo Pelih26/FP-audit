@@ -12,13 +12,13 @@ export class AdministrationUserPage extends BasePage {
     this.newUserButton = page.getByRole('button', { name: 'Новый пользователь' });
     this.applyButton = page.getByRole('button', { name: 'Применить' });
 
-    // Импуты с данными
-    this.searchInpytEmail = page.getByRole('textbox', { name: 'E-Mail' });
+    // Заполнение импутов
+    this.searchInputEmail = page.getByRole('textbox', { name: 'E-Mail' });
     this.loginInput = page.locator('input[name="login"]');
     this.emailUser = page.getByRole('textbox', { name: 'E-mail', exact: true });
     this.firstName = page.locator('#newUserForm').getByRole('textbox', { name: 'Имя' });
     this.lastName = page.locator('#newUserForm').getByRole('textbox', { name: 'Фамилия' });
-    this.UserPost = page.locator('#newUserForm').getByRole('textbox', { name: 'Должность' });
+    this.userPost = page.locator('#newUserForm').getByRole('textbox', { name: 'Должность' });
     this.fullPassword = page.getByRole('textbox', { name: 'Пароль', exact: true });
     this.confirmationPassword = page.getByRole('textbox', { name: 'Подтвердите пароль' });
     this.businessDirection = page.getByLabel('Select box activate');
@@ -26,21 +26,28 @@ export class AdministrationUserPage extends BasePage {
 
     // Элементы поиска
     this.noDataCell = page.getByRole('cell', { name: 'Нет данных' });
-  }
+  };
 
   // Переход на страницу Пользователи
   async openUsersSection() {
     await this.administrationLink.click();
     await this.usersLink.click();
-  }
+  };
 
   // Открытие страницы создание нового юзера
   async openCreateUserForm() {
     await this.openUsersSection();
     await this.newUserButton.click();
-  }
+  };
 
-  // Генерация нового пользователя
+  /**
+ * Заполняет форму создания пользователя
+ * @param {string} email - email нового пользователя
+ * @param {string} firstName - имя
+ * @param {string} lastName - фамилия
+ * @param {string} fullPassword - пароль
+ */
+
   async fillUserForm(email, firstName, lastName, fullPassword) {
     await this.loginInput.click();
     await this.loginInput.fill(email);
@@ -50,21 +57,21 @@ export class AdministrationUserPage extends BasePage {
     await this.firstName.fill(firstName);
     await this.lastName.click();
     await this.lastName.fill(lastName);
-    await this.UserPost.click();
-    await this.UserPost.fill('Продавец');
+    await this.userPost.click();
+    await this.userPost.fill('Продавец');
     await this.fullPassword.click();
     await this.fullPassword.fill(fullPassword);
     await this.confirmationPassword.click();
     await this.confirmationPassword.fill(fullPassword);
     await this.businessDirection.click();
     await this.businessDirectionChoice.click();
-  }
+  };
 
   // Поиск пользователя по email
   async searchUserByEmail(email) {
-    await this.openUsersSection;
-    await this.searchInpytEmail.fill(email);
+    await this.openUsersSection();
+    await this.searchInputEmail.fill(email);
     await this.applyButton.click();
-  }
-}
+  };
+};
 
