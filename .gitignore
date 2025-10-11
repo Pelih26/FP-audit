@@ -43,6 +43,3 @@ trace/
 # Temporary files
 *.tmp
 *.swp
-
-# Local file
-/demo/
