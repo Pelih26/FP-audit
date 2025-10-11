@@ -45,4 +45,4 @@ trace/
 *.swp
 
 # Local file
-demo
+/demo
