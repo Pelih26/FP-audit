@@ -9,7 +9,7 @@ let administrationUserPage;
 
 let newUser = {
   text_input: faker.lorem.text(),
-  email: faker.internet.email({provider: 'AQA.ru'}),
+  email: faker.internet.email({ provider: 'AQA.ru' }),
   firstName: faker.person.firstName(),
   lastName: faker.person.lastName(),
   fullPassword: faker.internet.password(),
@@ -17,7 +17,7 @@ let newUser = {
 
 test.describe.only('administration-section', () => {
   test.beforeEach(async ({ page }) => {
-   // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
+    // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
     test.setTimeout(45_000);
     mainPage = new MainPage(page);
     loginUser = new LoginUser(page);
@@ -41,7 +41,7 @@ test.describe.only('administration-section', () => {
     await page.waitForTimeout(2_000);
     await expect(page.getByRole('table')).toContainText('Нет данных');
   });
-  
+
   /* Тест проверяет создание нового пользователя в разделе Администрирование - пользователи
     - Ожидаемый результат создан новый пользователь.
   */

@@ -1,11 +1,43 @@
+import { BasePage } from './base.page.js';
 
+export class AdministrationUserPage extends BasePage {
+  constructor(page) {
+    super(page);
 
-await page.locator('div').filter({ hasText: /^Исполнители$/ }).click();
+    // Клики по кнопкам
+    this.createUserButton = page.getByRole('button', { name: 'Новый пользователь' });
+    this.applyButton = page.getByRole('button', { name: 'Применить' });
 
-await page.getByRole('textbox', { name: 'Введите список номеров, разделённый запятыми или пробелами' }).click();
-await page.getByRole('textbox', { name: 'Введите список номеров, разделённый запятыми или пробелами' }).fill('3015');
-await page.getByRole('button', { name: 'Обработать' }).click();
-await page.getByRole('button', { name: 'Добавить исполнителей (1)' }).click();
-await page.getByRole('button', { name: 'Создать' }).click();
-await expect(page.locator('#smallbox1')).toBeVisible();
-await page.getByText('Задача будет создана в течение 15 минут').click();
+    //
+    this.firstNameInput = page.locator('[data-test="first-name-input"]');
+    this.lastNameInput = page.locator('[data-test="last-name-input"]');
+    this.emailInput = page.locator('[data-test="email-input"]');
+    this.passwordInput = page.locator('[data-test="password-input"]');
+    this.saveBtn = page.locator('[data-test="save-user-button"]');
+    this.successMessage = page.locator('[data-test="success-message"]');
+  }
+
+  async openPage() {
+    await this.open('/administration/users');
+  }
+
+  /**
+   * Данные заполняют форму создания пользователя
+   * @param {string} email - email нового пользователя
+   * @param {string} firstName - имя
+   * @param {string} lastName - фамилия
+   * @param {string} fullPassword - пароль
+   */
+  async createUser(firstName, lastName, email, password) {
+    await this.click(this.createUserBtn);
+    await this.fill(this.firstNameInput, firstName);
+    await this.fill(this.lastNameInput, lastName);
+    await this.fill(this.emailInput, email);
+    await this.fill(this.passwordInput, password);
+    await this.click(this.saveBtn);
+  }
+
+  async checkUserCreated() {
+    await this.waitForVisible(this.successMessage);
+  }
+}

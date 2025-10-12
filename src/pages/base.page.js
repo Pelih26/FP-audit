@@ -9,8 +9,9 @@ export class BasePage {
   }
 
   // Метод делает клики по кнопкам
-  async click(element) {
-    await element.click();
+  async click(element, options = {}) {
+    await this.waitForVisible(element);
+    await element.click(options);
   }
 
   // Метод кликает и вводит текст в импут
@@ -20,12 +21,12 @@ export class BasePage {
   }
 
   // Метод явного ожидания элемента
-  async waitForVisible(element, timeout = 5000) {
+  async waitForVisible(element, timeout = 3_000) {
     await element.waitFor({ state: 'visible', timeout });
   }
 
   // Метод вызывающий паузу после действия
   async wait(ms) {
-    await this.page.waitForTimeout(ms);
+    await this.page.waitForTimeout(3_000);
   }
 }
