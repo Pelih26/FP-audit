@@ -4,6 +4,10 @@ export class CreateTask extends BasePage {
   constructor(page) {
     super(page);
 
+    // Получаем сегодняшнюю дату и число
+    const today = new Date();
+    const day = today.getDate();
+
     // Переход по ссылкам меню
     this.taskLink = page.locator('a').filter({ hasText: 'Задачи' });
     this.listLink = page.getByRole('link', { name: 'Список задач' });
@@ -22,9 +26,13 @@ export class CreateTask extends BasePage {
       .locator('div')
       .filter({ hasText: /^Установить$/ })
       .nth(4);
+    // Кликаем по элементу, у которого текст = сегодняшнее число
     this.dateClick = page
-      .locator('[data-test="Sat Oct 11 2025 00:00:00 GMT+0300 (Moscow Standard Time)"]')
-      .getByText('11', { exact: true }); // Тут надо подумать как дату менять
+      .locator('[data-test*="00:00:00 GMT+0300"]')
+      .getByText(day.toString(), { exact: true });
+    // this.dateClick = page
+    //   .locator('[data-test="Sat Oct 11 2025 00:00:00 GMT+0300 (Moscow Standard Time)"]')
+    //   .getByText('11', { exact: true }); // Тут надо подумать как дату менять
     this.dateChouse = page.getByRole('button', { name: 'Выбрать' });
     this.performersTab = page.locator('div').filter({ hasText: /^Исполнители$/ });
     this.storeNumberClick = page.getByRole('textbox', {
