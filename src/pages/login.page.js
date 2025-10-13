@@ -9,7 +9,7 @@ export class LoginUser extends BasePage {
     this.ksloginButton = page.locator('#kc-login');
   }
 
-  async loginKS(username = 'admindp', password = 'RGa2EGJkaP@X') {
+  async loginKS(username = 'a', password = 'R@X') {
     await this.click(this.loginButton);
     await this.fill(this.inputUserName, username);
     await this.fill(this.inputPassword, password);

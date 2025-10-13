@@ -40,31 +40,31 @@ export class CreateTask extends BasePage {
 
   // Переход на страницу Список задач
   async openTaskSection() {
-    await this.taskLink.click();
-    await this.listLink.click();
-    await this.page.waitForTimeout(2_000);
-    await this.addTask.click();
+    await this.click(this.taskLink);
+    await this.click(this.listLink);
+    await this.waitForVisible(this.addTask);
+    await this.click(this.addTask);
   }
 
   // Заполнение полей вкладки "Общая информация"
   async fillTask() {
-    await this.inputTaskType.click();
-    await this.taskType.click();
-    await this.inputTaskPriority.click();
-    await this.inputTaskName.click();
-    await this.inputTaskName.fill('АвтотестQA');
-    await this.inputTaskDescription.click();
-    await this.inputTaskDescription.fill('АвтотестQA');
-    await this.dataPicker.click();
-    await this.dateClick.click();
-    await this.dateChouse.click();
+    await this.click(this.inputTaskType);
+    await this.click(this.taskType);
+    await this.click(this.inputTaskPriority);
+    await this.click(this.inputTaskName);
+    await this.fill(this.inputTaskName, 'АвтотестQA');
+    await this.click(this.inputTaskDescription);
+    await this.fill(this.inputTaskDescription, 'АвтотестQA');
+    await this.click(this.dataPicker);
+    await this.click(this.dateClick);
+    await this.click(this.dateChouse);
 
     // Заполнение полей вкладки "Общая информация"
-    await this.performersTab.click();
-    await this.storeNumberClick.click();
-    await this.storeNumberFull.fill('2815');
-    await this.processingButton.click();
-    await this.addExecutorButton.click();
-    await this.createButton.click();
+    await this.click(this.performersTab);
+    await this.click(this.storeNumberClick);
+    await this.fill(this.storeNumberFull, '2815');
+    await this.click(this.processingButton);
+    await this.click(this.addExecutorButton);
+    await this.click(this.createButton);
   }
 }
