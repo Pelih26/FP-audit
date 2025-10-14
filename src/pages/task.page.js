@@ -17,7 +17,7 @@ export class CreateTask extends BasePage {
 
     // Заполнение импутов
     this.inputTaskType = page.locator('#single-select-task-type').getByRole('combobox');
-    this.taskType = page.locator('.multiselect-option', { hasText: 'Общая' }); // Надо подумать как менять тип задачи
+    //this.taskType = page.locator('.multiselect-option', { hasText: 'Общая' }); // Надо подумать как менять тип задачи
     this.inputTaskPriority = page.getByRole('combobox').filter({ hasText: 'Стандартная' });
     this.taskPriority = page.getByRole('option', { name: 'Срочная' });
     this.inputTaskName = page.locator('#input-task-name');
@@ -26,13 +26,16 @@ export class CreateTask extends BasePage {
       .locator('div')
       .filter({ hasText: /^Установить$/ })
       .nth(4);
+
     // Кликаем по элементу, у которого текст = сегодняшнее число
     this.dateClick = page
       .locator('[data-test*="00:00:00 GMT+0300"]')
       .getByText(day.toString(), { exact: true });
+
     // this.dateClick = page
     //   .locator('[data-test="Sat Oct 11 2025 00:00:00 GMT+0300 (Moscow Standard Time)"]')
     //   .getByText('11', { exact: true }); // Тут надо подумать как дату менять
+
     this.dateChouse = page.getByRole('button', { name: 'Выбрать' });
     this.performersTab = page.locator('div').filter({ hasText: /^Исполнители$/ });
     this.storeNumberClick = page.getByRole('textbox', {
@@ -50,14 +53,17 @@ export class CreateTask extends BasePage {
   async openTaskSection() {
     await this.click(this.taskLink);
     await this.click(this.listLink);
-    //await this.waitForVisible(this.addTask);
+    //await this.waitForVisible(this.addTask) // Не работает через Base.page
     await this.click(this.addTask);
   }
 
   // Заполнение полей вкладки "Общая информация"
-  async fillTask() {
+  async fillTask(taskTypeName = 'Общая') {
     await this.click(this.inputTaskType);
-    await this.click(this.taskType);
+
+    // Вставляем тип задачи. Тип задачи прописывсется в самом тесте (файл createTask)
+    const taskTypeOption = this.page.getByRole('option', { name: taskTypeName });
+    await this.click(taskTypeOption);
     await this.click(this.inputTaskPriority);
     await this.click(this.inputTaskName);
     await this.fill(this.inputTaskName, 'АвтотестQA');

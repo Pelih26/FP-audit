@@ -18,13 +18,19 @@ export class BasePage {
     await element.fill(text);
   }
 
-  // // Метод явного ожидания элемента
-  // async waitForVisible(element, timeout = 3_000) {
-  //   await element.waitFor({ state: 'visible', timeout });
-  // }
+  async wait(ms) {
+    await this.page.waitForTimeout(3_000);
+  }
+  /*
+Если раскомментировать появляется бесконечный спинер при клике на вкладку "Исполнители", при заведение задачи
+  // Метод явного ожидания элемента
+  async waitForVisible(element, timeout = 3_000) {
+    await element.waitFor({ state: 'visible', timeout });
+  }
 
-  // // Метод вызывающий паузу после действия
-  // async wait(ms) {
-  //   await this.page.waitForTimeout(3_000);
-  // }
+  // Метод вызывающий паузу после действия
+  async wait(ms) {
+    await this.page.waitForTimeout(3_000);
+  }
+  */
 }

@@ -19,7 +19,67 @@ test.describe('create task', () => {
     await page.waitForTimeout(15_000);
   });
 
-  test('test create task', async ({ page }) => {
+  test('Тест создание задачи с типом "Общая', async ({ page }) => {
+    mainPage = new MainPage(page);
+    createTask = new CreateTask(page);
+    await mainPage.openMenu();
+    await createTask.openTaskSection();
+    await createTask.fillTask('Общая');
+    // await expect(page.locator('#smallbox1')).toBeVisible();
+    await expect(page.locator('#smallbox1')).toContainText(
+      'Задача будет создана в течение 15 минут',
+    );
+  });
+
+  test('Тест создание задачи с типом "Фотоотчёт', async ({ page }) => {
+    mainPage = new MainPage(page);
+    createTask = new CreateTask(page);
+    await mainPage.openMenu();
+    await createTask.openTaskSection();
+    await createTask.fillTask('Фотоотчёт');
+    // await expect(page.locator('#smallbox1')).toBeVisible();
+    await expect(page.locator('#smallbox1')).toContainText(
+      'Задача будет создана в течение 15 минут',
+    );
+  });
+
+  test('Тест создание задачи с типом "Проверка наличия', async ({ page }) => {
+    mainPage = new MainPage(page);
+    createTask = new CreateTask(page);
+    await mainPage.openMenu();
+    await createTask.openTaskSection();
+    await createTask.fillTask('Проверка наличия');
+    // await expect(page.locator('#smallbox1')).toBeVisible();
+    await expect(page.locator('#smallbox1')).toContainText(
+      'Задача будет создана в течение 15 минут',
+    );
+  });
+
+  test('Тест создание задачи с типом "Пересчет товаров', async ({ page }) => {
+    mainPage = new MainPage(page);
+    createTask = new CreateTask(page);
+    await mainPage.openMenu();
+    await createTask.openTaskSection();
+    await createTask.fillTask();
+    await expect(page.locator('#smallbox1')).toBeVisible();
+    await expect(page.locator('#smallbox1')).toContainText(
+      'Задача будет создана в течение 15 минут',
+    );
+  });
+
+  test('Тест создание задачи с типом "Сбор данных', async ({ page }) => {
+    mainPage = new MainPage(page);
+    createTask = new CreateTask(page);
+    await mainPage.openMenu();
+    await createTask.openTaskSection();
+    await createTask.fillTask();
+    await expect(page.locator('#smallbox1')).toBeVisible();
+    await expect(page.locator('#smallbox1')).toContainText(
+      'Задача будет создана в течение 15 минут',
+    );
+  });
+
+  test('Тест создание задачи с типом "Подготовка к инвентаризации', async ({ page }) => {
     mainPage = new MainPage(page);
     createTask = new CreateTask(page);
     await mainPage.openMenu();
