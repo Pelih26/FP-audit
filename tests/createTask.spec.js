@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 // Импорт Faker с русской локалью
 import { fakerRU as faker } from '@faker-js/faker';
 import { MainPage, LoginUser, CreateTask } from '../src/pages/index';
-const url = 'https://audit-dev10.fix-price.ru/#/login';
+const url = 'https://audit-dev9.fix-price.ru/#/login';
 let mainPage;
 let loginUser;
 let createTask;

@@ -50,7 +50,7 @@ export class CreateTask extends BasePage {
   async openTaskSection() {
     await this.click(this.taskLink);
     await this.click(this.listLink);
-    await this.waitForVisible(this.addTask);
+    //await this.waitForVisible(this.addTask);
     await this.click(this.addTask);
   }
 
