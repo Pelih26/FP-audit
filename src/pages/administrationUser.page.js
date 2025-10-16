@@ -1,4 +1,5 @@
 import { BasePage } from './base.page';
+import { GenerateData } from './generateData.page';
 
 export class AdministrationUserPage extends BasePage {
   constructor(page) {
@@ -14,10 +15,10 @@ export class AdministrationUserPage extends BasePage {
 
     // Заполнение импутов
     this.searchInputEmail = page.getByRole('textbox', { name: 'E-Mail' });
-    this.loginInput = page.locator('input[name="login"]');
-    this.emailUser = page.getByRole('textbox', { name: 'E-mail', exact: true });
-    this.firstNameInput = page.locator('#newUserForm').getByRole('textbox', { name: 'Имя' });
-    this.lastNameInput = page.locator('#newUserForm').getByRole('textbox', { name: 'Фамилия' });
+    this.loginInput = page.locator('#input-newuser-login');
+    this.emailUser = page.locator('#input-newuser-email');
+    this.firstNameInput = page.locator('#input-newuser-first-name');
+    this.lastNameInput = page.locator('#input-newuser-last-name');
     this.userPost = page.locator('#newUserForm').getByRole('textbox', { name: 'Должность' });
     this.fullPassword = page.getByRole('textbox', { name: 'Пароль', exact: true });
     this.confirmationPassword = page.getByRole('textbox', { name: 'Подтвердите пароль' });
@@ -37,7 +38,8 @@ export class AdministrationUserPage extends BasePage {
   // Открытие страницы создание нового юзера
   async openCreateUserForm() {
     await this.openUsersSection();
-    await this.waitForVisible(this.newUserButton);
+    await this.wait(5_000);
+    //await this.waitForVisible(this.newUserButton);
     // await this.wait(2000);
     await this.click(this.newUserButton);
   }
@@ -50,29 +52,29 @@ export class AdministrationUserPage extends BasePage {
    * @param {string} fullPassword - пароль
    */
 
-  async fillUserForm(email, firstName, lastName, fullPassword) {
+  async fillUserForm(newUser) {
     await this.click(this.loginInput);
-    await this.fill(this.loginInput, email);
+    await this.fill(this.loginInput, newUser.email);
     await this.click(this.emailUser);
-    await this.fill(this.emailUser, email);
+    await this.fill(this.emailUser, newUser.email);
     await this.click(this.firstNameInput);
-    await this.fill(this.firstNameInput, firstName);
+    await this.fill(this.firstNameInput, newUser.firstName);
     await this.click(this.lastNameInput);
-    await this.fill(this.lastNameInput, lastName);
+    await this.fill(this.lastNameInput, newUser.lastName);
     await this.click(this.userPost);
     await this.fill(this.userPost, 'Продавец');
-    await this.click(this.fullPassword);
-    await this.fill(this.fullPassword, fullPassword);
+    await this.click(this.newUser.fullPassword);
+    await this.fill(this.fullPassword, newUser.fullPassword);
     await this.click(this.confirmationPassword);
-    await this.fill(this.confirmationPassword, fullPassword);
+    await this.fill(this.confirmationPassword, newUser.fullPassword);
     await this.click(this.businessDirection);
     await this.click(this.businessDirectionChoice);
   }
 
   // Поиск пользователя по email
-  async searchUserByEmail(email) {
+  async searchUserByEmail(newUser) {
     await this.openUsersSection();
-    await this.fill(this.searchInputEmail, email);
+    await this.fill(this.searchInputEmail, newUser.email);
     await this.click(this.applyButton);
   }
 }

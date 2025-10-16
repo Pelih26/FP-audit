@@ -7,6 +7,7 @@ export class MainPage extends BasePage {
   }
 
   async openMenu() {
+    await this.menu.waitFor({ state: 'visible', timeout: 20_000 }); // Ждем пока кнопка не станет активной
     await this.menu.click();
   }
 }

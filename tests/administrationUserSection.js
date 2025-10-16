@@ -1,19 +1,11 @@
 import { test, expect } from '@playwright/test';
-// Импорт Faker с русской локалью
-import { fakerRU as faker } from '@faker-js/faker';
 import { MainPage, AdministrationUserPage, LoginUser } from '../src/pages/index';
+import { GenerateData } from '../src/pages/generateData.page';
 const url = 'https://audit-dev9.fix-price.ru/#/login';
 let mainPage;
 let loginUser;
 let administrationUserPage;
-
-let newUser = {
-  text_input: faker.lorem.text(),
-  email: faker.internet.email({ provider: 'AQA.ru' }),
-  firstName: faker.person.firstName(),
-  lastName: faker.person.lastName(),
-  fullPassword: faker.internet.password(),
-};
+let newUser;
 
 test.describe.only('administration-section', () => {
   test.beforeEach(async ({ page }) => {
@@ -30,7 +22,7 @@ test.describe.only('administration-section', () => {
   /* Тест поверяет поиск пользователя по email (негативный)
     - Ожидаемый результат пользователь не найден
   */
-  test('test search alert, ТК-35397', async ({ page }) => {
+  test('Тест проверяет поиск несуществующего пользователя, ТК-35397', async ({ page }) => {
     mainPage = new MainPage(page);
     administrationUserPage = new AdministrationUserPage(page);
     await mainPage.openMenu();
@@ -45,16 +37,17 @@ test.describe.only('administration-section', () => {
   /* Тест проверяет создание нового пользователя в разделе Администрирование - пользователи
     - Ожидаемый результат создан новый пользователь.
   */
-  test('Creating a user, ТК-35405', async ({ page }) => {
+  test('Создание нового пользователя, ТК-35405', async ({ page }) => {
     mainPage = new MainPage(page);
     administrationUserPage = new AdministrationUserPage(page);
+    newUser = new GenerateData()
+      .addEmail()
+      .addFirstName()
+      .addlastName()
+      .addfullPassword()
+      .generate();
     await mainPage.openMenu();
     await administrationUserPage.openCreateUserForm();
-    await administrationUserPage.fillUserForm(
-      newUser.email,
-      newUser.firstName,
-      newUser.lastName,
-      newUser.fullPassword,
-    );
+    await administrationUserPage.fillUserForm(newUser);
   });
 });

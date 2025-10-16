@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 // Импорт Faker с русской локалью
 import { fakerRU as faker } from '@faker-js/faker';
-import { allure } from "allure-playwright";
+import { allure } from 'allure-playwright';
 import { MainPage, AdministrationUserPage, LoginUser } from '../src/pages/index';
 const url = 'https://audit-dev9.fix-price.ru/#/login';
 let mainPage;
@@ -10,7 +10,7 @@ let administrationUserPage;
 
 let newUser = {
   text_input: faker.lorem.text(),
-  email: faker.internet.email({provider: 'AQA.ru'}),
+  email: faker.internet.email({ provider: 'AQA.ru' }),
   firstName: faker.person.firstName(),
   lastName: faker.person.lastName(),
   fullPassword: faker.internet.password(),
@@ -18,7 +18,7 @@ let newUser = {
 
 test.describe.only('administration-section', () => {
   test.beforeEach(async ({ page }) => {
-   // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
+    // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
     test.setTimeout(45_000);
     mainPage = new MainPage(page);
     loginUser = new LoginUser(page);
@@ -34,11 +34,11 @@ test.describe.only('administration-section', () => {
   test('test search alert, ТК-35397', async ({ page }) => {
     mainPage = new MainPage(page);
     administrationUserPage = new AdministrationUserPage(page);
-    await allure.displayName("Test Authentication");
-    await allure.owner("John Doe");
-    await allure.tags("Web interface", "Authentication");
-    await allure.severity("critical");
-    await allure.tms("ссылка");
+    await allure.displayName('Test Authentication');
+    await allure.owner('John Doe');
+    await allure.tags('Web interface', 'Authentication');
+    await allure.severity('critical');
+    await allure.tms('ссылка');
     await mainPage.openMenu();
     await administrationUserPage.openUsersSection();
     await administrationUserPage.searchUserByEmail(newUser.email);
@@ -46,18 +46,18 @@ test.describe.only('administration-section', () => {
     await page.waitForTimeout(2_000);
     await expect(page.getByRole('table')).toContainText('Нет данных');
   });
-  
+
   /* Тест проверяет создание нового пользователя в разделе Администрирование - пользователи
     - Ожидаемый результат создан новый пользователь.
   */
   test('Creating a user, ТК-35405', async ({ page }) => {
     mainPage = new MainPage(page);
     administrationUserPage = new AdministrationUserPage(page);
-    await allure.displayName("Test Authentication");
-    await allure.owner("John Doe");
-    await allure.tags("Web interface", "Authentication");
-    await allure.severity("critical");
-    await allure.tms("ссылка");
+    await allure.displayName('Test Authentication');
+    await allure.owner('John Doe');
+    await allure.tags('Web interface', 'Authentication');
+    await allure.severity('critical');
+    await allure.tms('ссылка');
     await mainPage.openMenu();
     await administrationUserPage.openCreateUserForm();
     await administrationUserPage.fillUserForm(
