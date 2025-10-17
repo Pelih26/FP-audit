@@ -1,6 +1,5 @@
 import { expect } from '@playwright/test';
 import { BasePage } from './base.page';
-import { th } from '@faker-js/faker';
 
 export class CreateTask extends BasePage {
   constructor(page) {
@@ -17,7 +16,7 @@ export class CreateTask extends BasePage {
     // Клик по кнопкам
     this.addTask = page.getByRole('button', { name: 'Добавить задачу' });
 
-    // Заполнение импутов
+    // Вкладка - Общая информация
     this.inputTaskType = page.locator('#single-select-task-type').getByRole('combobox');
     this.inputTaskPriority = page.getByRole('combobox').filter({ hasText: 'Стандартная' });
     this.taskPriority = page.getByRole('option', { name: 'Срочная' });
@@ -32,8 +31,9 @@ export class CreateTask extends BasePage {
     this.dateClick = page
       .locator('[data-test*="00:00:00 GMT+0300"]')
       .getByText(day.toString(), { exact: true });
-
     this.dateChouse = page.getByRole('button', { name: 'Выбрать' });
+
+    // Вкладка - Исполнители
     this.performersTab = page.locator('div').filter({ hasText: /^Исполнители$/ });
     this.storeNumberClick = page.getByRole('textbox', {
       name: 'Введите список номеров, разделённый запятыми или пробелами',
@@ -58,16 +58,17 @@ export class CreateTask extends BasePage {
     await this.click(this.taskLink);
     await this.click(this.listLink);
     //await this.waitForVisible(this.addTask) // Не работает через Base.page
-    await this.page.waitForTimeout(5_000);
+    await expect(this.addTask).toBeVisible({ timeout: 10_000 }); // Проверка что кнопка стала активной
     await this.click(this.addTask);
   }
 
   // Заполнение полей вкладки "Общая информация"
-  async fillTask(taskTypeName = 'Общая') {
+  async fillTask(taskTypeName) {
     await this.click(this.inputTaskType);
-    // Вставляем тип задачи. Тип задачи прописывсется в самом тесте (файл createTask)
-    const taskTypeOption = this.page.getByRole('option', { name: taskTypeName });
+    const taskTypeOption = this.page.getByRole('option', { name: taskTypeName }); // Вставляем тип задачи. Тип задачи прописывсется в самом тесте (файл createTask)
     await this.click(taskTypeOption);
+
+    // Заполнение импутов - Общая информация
     await this.click(this.inputTaskPriority);
     await this.click(this.inputTaskName);
     await this.fill(this.inputTaskName, taskTypeName + ' АвтотестQA');
@@ -86,31 +87,29 @@ export class CreateTask extends BasePage {
     await this.click(this.createButton);
   }
 
-  async fillTaskManualRecalculation(taskTypeName2 = 'Пересчёт товара') {
+  async fillTaskManualRecalculation(taskTypeRecalculation) {
     await this.click(this.inputTaskType);
-    const taskTypeOption2 = this.page.getByRole('option', { name: taskTypeName2 });
-    await this.click(taskTypeOption2);
+    const optionRecalculation = this.page.getByRole('option', {
+      name: taskTypeRecalculation,
+    });
+    await this.click(optionRecalculation);
     await this.click(this.inputTaskPriority);
     await expect(this.page.locator('#input-task-name')).toHaveValue(
-      'Ручной пересчёт товаров от 15.10.2025',
+      'Ручной пересчёт товаров от 17.10.2025',
     );
     await this.click(this.inputTaskDescription);
-    await this.fill(this.inputTaskDescription, taskTypeName2 + ' АвтотестQA');
+    await this.fill(this.inputTaskDescription, taskTypeRecalculation + ' АвтотестQA');
     await this.click(this.dataPicker);
     await this.click(this.dateClick);
     await this.click(this.dateChouse);
     await this.click(this.changeButton);
-    //await this.click(this.searchСode);
     await this.click(this.addMultiple);
     await this.click(this.selectionProduct);
     await this.fill(this.selectionProduct, '000000000005562008');
-    // await this.fill(this.searchСode, '000000000005562008');
-    await this.page.waitForTimeout(2_000);
-    //await this.click(selectionProduct);
     await this.click(this.onList);
-    await this.page.waitForTimeout(2_000);
+    await this.page.waitForTimeout(600);
+    // await expect(this.applButton).toBeVisible({ timeout: 3_000 }); // Не работает !!!!
     await this.click(this.applButton);
-    //await this.click(this.performersTab);
 
     // Заполнение полей вкладки "Исполнители"
     await this.click(this.performersTab);
@@ -120,4 +119,41 @@ export class CreateTask extends BasePage {
     await this.click(this.addExecutorButton);
     await this.click(this.createButton);
   }
+
+  // async fillTaskManualInventory(taskTypeInventory) {
+  //   await this.click(this.inputTaskType);
+  //   const taskTypeInventory = this.page.getByRole('option', {
+  //     name: taskTypeInventory,
+  //   });
+  //   await this.click(taskTypeInventory);
+  //   await this.click(this.inputTaskPriority);
+  //   await expect(this.page.locator('#input-task-name')).toHaveValue(
+  //     'Ручной пересчёт товаров от 15.10.2025',
+  //   );
+  //   await this.click(this.inputTaskDescription);
+  //   await this.fill(this.inputTaskDescription, taskTypeName2 + ' АвтотестQA');
+  //   await this.click(this.dataPicker);
+  //   await this.click(this.dateClick);
+  //   await this.click(this.dateChouse);
+  //   await this.click(this.changeButton);
+  //   //await this.click(this.searchСode);
+  //   await this.click(this.addMultiple);
+  //   await this.click(this.selectionProduct);
+  //   await this.fill(this.selectionProduct, '000000000005562008');
+  //   // await this.fill(this.searchСode, '000000000005562008');
+  //   await this.page.waitForTimeout(2_000);
+  //   //await this.click(selectionProduct);
+  //   await this.click(this.onList);
+  //   await this.page.waitForTimeout(2_000);
+  //   await this.click(this.applButton);
+  //   //await this.click(this.performersTab);
+
+  //   // Заполнение полей вкладки "Исполнители"
+  //   await this.click(this.performersTab);
+  //   await this.click(this.storeNumberClick);
+  //   await this.fill(this.storeNumberFull, '2815');
+  //   await this.click(this.processingButton);
+  //   await this.click(this.addExecutorButton);
+  //   await this.click(this.createButton);
+  //}
 }
