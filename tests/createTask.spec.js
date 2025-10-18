@@ -71,27 +71,16 @@ test.describe('create task', () => {
     );
   });
 
-  // // Тест НЕГОТОВ
-  // test('Тест - создание задачи с типом "Сбор данных"', async ({ page }) => {
-  //   await app.mainPage.openMenu();
-  //   await app.createTask.openTaskSection();
-  //   await app.createTask.fillTask();
-  //   await expect(page.locator('#smallbox1')).toBeVisible();
-  //   await expect(page.locator('#smallbox1')).toContainText(
-  //     'Задача будет создана в течение 15 минут',
-  //   );
-  // });
-
-  // test('Тест - создание задачи с типом "Подготовка к инвентаризации"', async ({ page }) => {
-  //   app = new App(page);
-  //   await app.mainPage.openMenu();
-  //   await app.createTask.openTaskSection();
-  //   await app.createTask.fillTask();
-  //   await expect(page.locator('#smallbox1')).toBeVisible();
-  //   await expect(page.locator('#smallbox1')).toContainText(
-  //     'Задача будет создана в течение 15 минут',
-  //   );
-  // });
+  test('Тест - создание задачи с типом "Подготовка к инвентаризации"', async ({ page }) => {
+    app = new App(page);
+    await app.mainPage.openMenu();
+    await app.createTask.openTaskSection();
+    await app.createTask.fillTaskManualInventory('Подготовка к инвентаризации');
+    await expect(page.locator('#smallbox1')).toBeVisible();
+    await expect(page.locator('#smallbox1')).toContainText(
+      'Задача будет создана в течение 15 минут',
+    );
+  });
 
   // Блок тестов на проверку что задачи созданы
   /*

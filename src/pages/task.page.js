@@ -175,4 +175,30 @@ export class CreateTask extends BasePage {
     await this.click(this.addExecutorButton);
     await this.click(this.createButton);
   }
+
+  // ====== Создание задачи типа Подготовка к инвентаризации ======
+  async fillTaskManualInventory(taskTypeInventory) {
+    await this.click(this.inputTaskType);
+    const optionInventory = this.page.getByRole('option', {
+      name: taskTypeInventory,
+    });
+    await this.click(optionInventory);
+    await this.click(this.inputTaskPriority);
+    await expect(this.page.locator('#input-task-name')).toHaveValue(
+      'Подготовка к инвентаризации от 18.10.2025',
+    );
+    await this.click(this.inputTaskDescription);
+    await this.fill(this.inputTaskDescription, taskTypeInventory + ' АвтотестQA');
+    await this.click(this.dataPicker);
+    await this.click(this.dateClick);
+    await this.click(this.dateChouse);
+
+    // Заполнение полей вкладки "Исполнители"
+    await this.click(this.performersTab);
+    await this.click(this.storeNumberInput);
+    await this.fill(this.storeNumberInput, '3015');
+    await this.click(this.processingButton);
+    await this.click(this.addExecutorButton);
+    await this.click(this.createButton);
+  }
 }
