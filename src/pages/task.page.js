@@ -61,7 +61,9 @@ export class CreateTask extends BasePage {
   // ====== Создание задачи типа Общая/Фотоотчет/Проверка наличия ======
   async fillTask(taskTypeName) {
     await this.click(this.inputTaskType);
-    const taskTypeOption = this.page.getByRole('option', { name: taskTypeName }); // Вставляем тип задачи. Тип задачи прописывсется в самом тесте (файл createTask)
+
+    // Вставляем тип задачи. Тип задачи прописывсется в самом тесте (файл createTask)
+    const taskTypeOption = this.page.getByRole('option', { name: taskTypeName });
     await this.click(taskTypeOption);
 
     // Заполнение импутов - Общая информация

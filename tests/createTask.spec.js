@@ -16,7 +16,6 @@ test.describe('create task', () => {
     await app.loginUser.loginKS();
   });
 
-  // Тест готов
   test('Тест - создание задачи с типом "Общая"', async ({ page }) => {
     await app.mainPage.openMenu();
     await app.createTask.openTaskSection();
@@ -27,7 +26,6 @@ test.describe('create task', () => {
     );
   });
 
-  // Тест готов
   test('Тест - создание задачи с типом "Фотоотчёт"', async ({ page }) => {
     await app.mainPage.openMenu();
     await app.createTask.openTaskSection();
@@ -38,7 +36,6 @@ test.describe('create task', () => {
     );
   });
 
-  // Тест готов
   test('Тест - создание задачи с типом "Проверка наличия"', async ({ page }) => {
     await app.mainPage.openMenu();
     await app.createTask.openTaskSection();
@@ -49,7 +46,6 @@ test.describe('create task', () => {
     );
   });
 
-  // Тест Вроде готов
   test('Тест - создание задачи с типом "Пересчёт товара"', async ({ page }) => {
     await app.mainPage.openMenu();
     await app.createTask.openTaskSection();
@@ -60,7 +56,6 @@ test.describe('create task', () => {
     );
   });
 
-  // Тест готов
   test('Тест - создание задачи с типом "Сбор данных"', async ({ page }) => {
     await app.mainPage.openMenu();
     await app.createTask.openTaskSection();
