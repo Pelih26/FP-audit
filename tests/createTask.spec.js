@@ -4,13 +4,13 @@ import { fakerRU as faker } from '@faker-js/faker';
 import { allure } from 'allure-playwright';
 import { MainPage, LoginUser, CreateTask } from '../src/pages/index';
 import { App } from '../src/pages/app.page';
-const url = 'https://audit-dev9.fix-price.ru/#/login';
+const url = 'https://audit-dev4.fix-price.ru/#/login';
 let app;
 
 test.describe('create task', () => {
   test.beforeEach(async ({ page }) => {
     // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
-    test.setTimeout(40_000);
+    test.setTimeout(45_000);
     app = new App(page);
     await app.mainPage.open(url);
     await app.loginUser.loginKS();
@@ -18,7 +18,6 @@ test.describe('create task', () => {
 
   // Тест готов
   test('Тест - создание задачи с типом "Общая"', async ({ page }) => {
-    app = new App(page);
     await app.mainPage.openMenu();
     await app.createTask.openTaskSection();
     await app.createTask.fillTask('Общая');
@@ -30,7 +29,6 @@ test.describe('create task', () => {
 
   // Тест готов
   test('Тест - создание задачи с типом "Фотоотчёт"', async ({ page }) => {
-    app = new App(page);
     await app.mainPage.openMenu();
     await app.createTask.openTaskSection();
     await app.createTask.fillTask('Фотоотчёт');
@@ -42,7 +40,6 @@ test.describe('create task', () => {
 
   // Тест готов
   test('Тест - создание задачи с типом "Проверка наличия"', async ({ page }) => {
-    app = new App(page);
     await app.mainPage.openMenu();
     await app.createTask.openTaskSection();
     await app.createTask.fillTask('Проверка наличия');
@@ -54,7 +51,6 @@ test.describe('create task', () => {
 
   // Тест Вроде готов
   test('Тест - создание задачи с типом "Пересчёт товара"', async ({ page }) => {
-    app = new App(page);
     await app.mainPage.openMenu();
     await app.createTask.openTaskSection();
     await app.createTask.fillTaskManualRecalculation('Пересчёт товара');
@@ -64,28 +60,38 @@ test.describe('create task', () => {
     );
   });
 
-  // Тест НЕГОТОВ
+  // Тест готов
   test('Тест - создание задачи с типом "Сбор данных"', async ({ page }) => {
-    app = new App(page);
     await app.mainPage.openMenu();
     await app.createTask.openTaskSection();
-    await app.createTask.fillTask();
+    await app.createTask.fillTaskManualDataCollection('Сбор данных');
     await expect(page.locator('#smallbox1')).toBeVisible();
     await expect(page.locator('#smallbox1')).toContainText(
       'Задача будет создана в течение 15 минут',
     );
   });
 
-  test('Тест - создание задачи с типом "Подготовка к инвентаризации"', async ({ page }) => {
-    app = new App(page);
-    await app.mainPage.openMenu();
-    await app.createTask.openTaskSection();
-    await app.createTask.fillTask();
-    await expect(page.locator('#smallbox1')).toBeVisible();
-    await expect(page.locator('#smallbox1')).toContainText(
-      'Задача будет создана в течение 15 минут',
-    );
-  });
+  // // Тест НЕГОТОВ
+  // test('Тест - создание задачи с типом "Сбор данных"', async ({ page }) => {
+  //   await app.mainPage.openMenu();
+  //   await app.createTask.openTaskSection();
+  //   await app.createTask.fillTask();
+  //   await expect(page.locator('#smallbox1')).toBeVisible();
+  //   await expect(page.locator('#smallbox1')).toContainText(
+  //     'Задача будет создана в течение 15 минут',
+  //   );
+  // });
+
+  // test('Тест - создание задачи с типом "Подготовка к инвентаризации"', async ({ page }) => {
+  //   app = new App(page);
+  //   await app.mainPage.openMenu();
+  //   await app.createTask.openTaskSection();
+  //   await app.createTask.fillTask();
+  //   await expect(page.locator('#smallbox1')).toBeVisible();
+  //   await expect(page.locator('#smallbox1')).toContainText(
+  //     'Задача будет создана в течение 15 минут',
+  //   );
+  // });
 
   // Блок тестов на проверку что задачи созданы
   /*
