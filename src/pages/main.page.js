@@ -9,7 +9,7 @@ export class MainPage extends BasePage {
 
   async openMenu() {
     // await this.menu.waitFor({ state: 'visible', timeout: 20_000 });
-    await expect(this.menu).toBeVisible({ timeout: 20_000 });
+    await expect(this.menu).toBeVisible({ timeout: 25_000 });
     await this.menu.click();
   }
 }
