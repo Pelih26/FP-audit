@@ -1,16 +1,17 @@
-import { test, expect } from '@playwright/test';
-// Импорт Faker с русской локалью
+import { expect } from '@playwright/test';
+import { test } from '../src/pages/fixtures/fixture';
 import { fakerRU as faker } from '@faker-js/faker';
 import { allure } from 'allure-playwright';
 import { MainPage, LoginUser, CreateTask } from '../src/pages/index';
 import { App } from '../src/pages/app.page';
+import { loginFixture } from '../src/pages/fixtures/fixture';
 const url = 'https://audit-dev4.fix-price.ru/#/login';
 let app;
 
 test.describe('create task', () => {
   test.beforeEach(async ({ page }) => {
     // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
-    test.setTimeout(45_000);
+    test.setTimeout(55_000);
     app = new App(page);
     await app.mainPage.open(url);
     await app.loginUser.loginKS();

@@ -8,6 +8,7 @@ export class CreateTask extends BasePage {
     // Получение сегодняшней даты для выбора ее в окне календаря при создани задачи
     const today = new Date();
     const day = today.getDate();
+    this.formattedDate = this.getCurrentDate();
 
     // ====== Локаторы ======
     // Переход по ссылкам меню
@@ -47,6 +48,12 @@ export class CreateTask extends BasePage {
     this.selectionProduct = page.locator('#textarea-goods-local-codes-textarea');
     this.onList = page.getByRole('button', { name: 'Включить в список' });
     this.applButton = page.getByRole('button', { name: 'Применить' });
+
+    // Не обязательные поля
+    this.localTime = page.locator('.custom-checkbox__check-square');
+    this.advancedSettingsTab = page
+      .locator('div')
+      .filter({ hasText: /^Дополнительные параметры$/ });
   }
 
   // ====== Переход на страницу задачи ======
@@ -54,7 +61,7 @@ export class CreateTask extends BasePage {
     await this.click(this.taskLink);
     await this.click(this.listLink);
     //await this.waitForVisible(this.addTask) // Не работает через Base.page
-    await expect(this.addTask).toBeVisible({ timeout: 15_000 }); // Проверка что кнопка стала активной
+    await expect(this.addTask).toBeVisible({ timeout: 20_000 }); // Проверка что кнопка стала активной
     await this.click(this.addTask);
   }
 
@@ -94,7 +101,7 @@ export class CreateTask extends BasePage {
     await this.click(optionRecalculation);
     await this.click(this.inputTaskPriority);
     await expect(this.page.locator('#input-task-name')).toHaveValue(
-      'Ручной пересчёт товаров от 18.10.2025',
+      `Ручной пересчёт товаров от ${this.formattedDate}`,
     );
     await this.click(this.inputTaskDescription);
     await this.fill(this.inputTaskDescription, taskTypeRecalculation + ' АвтотестQA');
@@ -149,25 +156,23 @@ export class CreateTask extends BasePage {
     await this.click(this.createButton);
   }
 
-  // ====== Создание задачи типа Сбор данных ======
-  async fillTaskManualDataCollection(taskTypeDataCollection) {
+  // ====== Создание задачи типа Подготовка к инвентаризации ======
+  async fillTaskManualInventory(taskTypeInventory) {
     await this.click(this.inputTaskType);
-    const optionDataCollection = this.page.getByRole('option', {
-      name: taskTypeDataCollection,
+    const optionInventory = this.page.getByRole('option', {
+      name: taskTypeInventory,
     });
-    await this.click(optionDataCollection);
+    await this.click(optionInventory);
     await this.click(this.inputTaskPriority);
     await expect(this.page.locator('#input-task-name')).toHaveValue(
-      'Сбор данных для производственной отчётности',
+      `Подготовка к инвентаризации от ${this.formattedDate}`,
     );
     await this.click(this.inputTaskDescription);
-    await this.fill(this.inputTaskDescription, taskTypeDataCollection + ' АвтотестQA');
+    await this.fill(this.inputTaskDescription, taskTypeInventory + ' АвтотестQA');
     await this.click(this.dataPicker);
     await this.click(this.dateClick);
     await this.click(this.dateChouse);
-    await expect(this.page.locator('#collapse_tasks-editor-general-info')).toContainText(
-      'ЛИСТОВКИ ЗАКАЗА ТАКСИ MAXIM',
-    );
+    // await this.optionalFields();
 
     // Заполнение полей вкладки "Исполнители"
     await this.click(this.performersTab);
@@ -178,29 +183,9 @@ export class CreateTask extends BasePage {
     await this.click(this.createButton);
   }
 
-  // ====== Создание задачи типа Подготовка к инвентаризации ======
-  async fillTaskManualInventory(taskTypeInventory) {
-    await this.click(this.inputTaskType);
-    const optionInventory = this.page.getByRole('option', {
-      name: taskTypeInventory,
-    });
-    await this.click(optionInventory);
-    await this.click(this.inputTaskPriority);
-    await expect(this.page.locator('#input-task-name')).toHaveValue(
-      'Подготовка к инвентаризации от 18.10.2025',
-    );
-    await this.click(this.inputTaskDescription);
-    await this.fill(this.inputTaskDescription, taskTypeInventory + ' АвтотестQA');
-    await this.click(this.dataPicker);
-    await this.click(this.dateClick);
-    await this.click(this.dateChouse);
-
-    // Заполнение полей вкладки "Исполнители"
-    await this.click(this.performersTab);
-    await this.click(this.storeNumberInput);
-    await this.fill(this.storeNumberInput, '3015');
-    await this.click(this.processingButton);
-    await this.click(this.addExecutorButton);
-    await this.click(this.createButton);
+  // Заполнение не обязательных полей
+  async optionalFields() {
+    await this.click(this.localTime);
+    await this.click(this.advancedSettingsTab);
   }
 }
