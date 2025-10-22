@@ -26,7 +26,6 @@ export class BasePage {
     const year = today.getFullYear();
     return `${day}.${month}.${year}`;
   }
-
   /*
   async wait(ms) {
     await this.page.waitForTimeout(3_000);

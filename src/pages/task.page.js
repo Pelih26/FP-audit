@@ -8,6 +8,8 @@ export class CreateTask extends BasePage {
     // Получение сегодняшней даты для выбора ее в окне календаря при создани задачи
     const today = new Date();
     const day = today.getDate();
+
+    // Подстановка даты в задачи типа - Подготовка к инвентаризации/Пересчёт товаров
     this.formattedDate = this.getCurrentDate();
 
     // ====== Локаторы ======

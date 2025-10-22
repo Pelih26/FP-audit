@@ -1,4 +1,4 @@
 export * from './main.page';
-export * from './administrationUser.page';
+export * from './administrationUser.page.js';
 export * from './login.page';
-export * from './task.page';
+export * from './task.page.js';
