@@ -49,8 +49,19 @@ export class CreateTask extends BasePage {
     this.onList = page.getByRole('button', { name: 'Включить в список' });
     this.applButton = page.getByRole('button', { name: 'Применить' });
 
-    // Не обязательные поля
-    this.localTime = page.locator('.custom-checkbox__check-square');
+    // ====== Не обязательные поля ======
+    // Вкладка - Общая информация
+    this.localTime = page.locator('.custom-checkbox__check-square').first();
+    this.deadLineHours = page
+      .locator('#single-select-task-deadline-time-hours')
+      .getByRole('combobox');
+    this.hours = page.getByRole('option', { name: '22' });
+    this.deadLineMin = page
+      .locator('#single-select-task-deadline-time-minutes')
+      .getByRole('combobox');
+    this.miutes = page.getByRole('option', { name: '05' });
+
+    // Вкладка - Дополнительные параметры
     this.advancedSettingsTab = page
       .locator('div')
       .filter({ hasText: /^Дополнительные параметры$/ });
@@ -172,7 +183,7 @@ export class CreateTask extends BasePage {
     await this.click(this.dataPicker);
     await this.click(this.dateClick);
     await this.click(this.dateChouse);
-    // await this.optionalFields();
+    await this.optionalFields();
 
     // Заполнение полей вкладки "Исполнители"
     await this.click(this.performersTab);
@@ -186,6 +197,9 @@ export class CreateTask extends BasePage {
   // Заполнение не обязательных полей
   async optionalFields() {
     await this.click(this.localTime);
-    await this.click(this.advancedSettingsTab);
+    await this.click(this.deadLineHours);
+    await this.click(this.hours);
+    await this.click(this.deadLineMin);
+    //await this.click(this.advancedSettingsTab);
   }
 }
