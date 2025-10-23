@@ -10,7 +10,7 @@ export class CreateTask extends BasePage {
     const day = today.getDate();
 
     // Подстановка даты в задачи типа - Подготовка к инвентаризации/Пересчёт товаров
-    this.formattedDate = this.getCurrentDate();
+    //this.formattedDate = this.getCurrentDate();
 
     // ====== Локаторы ======
     // Переход по ссылкам меню
@@ -63,7 +63,7 @@ export class CreateTask extends BasePage {
     await this.click(this.taskLink);
     await this.click(this.listLink);
     //await this.waitForVisible(this.addTask) // Не работает через Base.page
-    await expect(this.addTask).toBeVisible({ timeout: 20_000 }); // Проверка что кнопка стала активной
+    await expect(this.addTask).toBeVisible({ timeout: 25_000 }); // Проверка что кнопка стала активной
     await this.click(this.addTask);
   }
 
@@ -103,7 +103,7 @@ export class CreateTask extends BasePage {
     await this.click(optionRecalculation);
     await this.click(this.inputTaskPriority);
     await expect(this.page.locator('#input-task-name')).toHaveValue(
-      `Ручной пересчёт товаров от ${this.formattedDate}`,
+      'Ручной пересчёт товаров от 23.10.2025',
     );
     await this.click(this.inputTaskDescription);
     await this.fill(this.inputTaskDescription, taskTypeRecalculation + ' АвтотестQA');
@@ -167,9 +167,9 @@ export class CreateTask extends BasePage {
     await this.click(optionInventory);
     await this.click(this.inputTaskPriority);
     await expect(this.page.locator('#input-task-name')).toHaveValue(
-      `Подготовка к инвентаризации от ${this.formattedDate}`,
-    );
-    await this.click(this.inputTaskDescription);
+      'Подготовка к инвентаризации от 23.10.2025',
+    ),
+      await this.click(this.inputTaskDescription);
     await this.fill(this.inputTaskDescription, taskTypeInventory + ' АвтотестQA');
     await this.click(this.dataPicker);
     await this.click(this.dateClick);

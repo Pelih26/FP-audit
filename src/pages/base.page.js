@@ -19,13 +19,13 @@ export class BasePage {
   }
 
   // Метод генерации даты для подставновки в локатор
-  getCurrentDate() {
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const year = today.getFullYear();
-    return `${day}.${month}.${year}`;
-  }
+  // getCurrentDate() {
+  //   const today = new Date();
+  //   const day = String(today.getDate()).padStart(2, '0');
+  //   const month = String(today.getMonth() + 1).padStart(2, '0');
+  //   const year = today.getFullYear();
+  //   return `${day}.${month}.${year}`;
+  // }
   /*
   async wait(ms) {
     await this.page.waitForTimeout(3_000);
