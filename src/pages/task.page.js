@@ -10,7 +10,7 @@ export class CreateTask extends BasePage {
     const day = today.getDate();
 
     // Подстановка даты в задачи типа - Подготовка к инвентаризации/Пересчёт товаров
-    //this.formattedDate = this.getCurrentDate();
+    this.formattedDate = this.getCurrentDate();
 
     // ====== Локаторы ======
     // Переход по ссылкам меню
@@ -114,8 +114,9 @@ export class CreateTask extends BasePage {
     await this.click(optionRecalculation);
     await this.click(this.inputTaskPriority);
     await expect(this.page.locator('#input-task-name')).toHaveValue(
-      'Ручной пересчёт товаров от 23.10.2025',
+      `Ручной пересчёт товаров от ${this.formattedDate}`,
     );
+    await this.appendTextToInput('#input-task-name', ' АвтотестQA');
     await this.click(this.inputTaskDescription);
     await this.fill(this.inputTaskDescription, taskTypeRecalculation + ' АвтотестQA');
     await this.click(this.dataPicker);
@@ -150,6 +151,7 @@ export class CreateTask extends BasePage {
     await expect(this.page.locator('#input-task-name')).toHaveValue(
       'Сбор данных для производственной отчётности',
     );
+    await this.appendTextToInput('#input-task-name', ' АвтотестQA');
     await this.click(this.inputTaskDescription);
     await this.fill(this.inputTaskDescription, taskTypeDataCollection + ' АвтотестQA');
     await this.click(this.dataPicker);
@@ -178,14 +180,15 @@ export class CreateTask extends BasePage {
     await this.click(optionInventory);
     await this.click(this.inputTaskPriority);
     await expect(this.page.locator('#input-task-name')).toHaveValue(
-      'Подготовка к инвентаризации от 23.10.2025',
+      `Подготовка к инвентаризации от ${this.formattedDate}`,
     ),
-      await this.click(this.inputTaskDescription);
+      await this.appendTextToInput('#input-task-name', ' АвтотестQA');
+    await this.click(this.inputTaskDescription);
     await this.fill(this.inputTaskDescription, taskTypeInventory + ' АвтотестQA');
     await this.click(this.dataPicker);
     await this.click(this.dateClick);
     await this.click(this.dateChouse);
-    await this.optionalFields();
+    await this.optionalFields(); // Заполнение не обязательных полей
 
     // Заполнение полей вкладки "Исполнители"
     await this.click(this.performersTab);
