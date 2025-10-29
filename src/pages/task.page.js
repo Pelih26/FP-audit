@@ -29,12 +29,6 @@ export class CreateTask extends BasePage {
       .filter({ hasText: /^Установить$/ })
       .nth(4);
 
-    // Кликаем сегодняшнию дату в окне календаря
-    this.dateClick = page
-      .locator('[data-test*="00:00:00 GMT+0300"]')
-      .getByText(day.toString(), { exact: true });
-    this.dateChouse = page.getByRole('button', { name: 'Выбрать' });
-
     // Заполнение инпутов вкладки - Исполнители
     this.performersTab = page.locator('div').filter({ hasText: /^Исполнители$/ });
     this.storeNumberInput = page.getByRole('textbox', {
@@ -74,7 +68,7 @@ export class CreateTask extends BasePage {
     await this.click(this.taskLink);
     await this.click(this.listLink);
     //await this.waitForVisible(this.addTask) // Не работает через Base.page
-    await expect(this.addTask).toBeVisible({ timeout: 25_000 }); // Проверка что кнопка стала активной
+    await expect(this.addTask).toBeVisible({ timeout: 35_000 }); // Проверка что кнопка стала активной
     await this.click(this.addTask);
   }
 
@@ -93,8 +87,7 @@ export class CreateTask extends BasePage {
     await this.click(this.inputTaskDescription);
     await this.fill(this.inputTaskDescription, taskTypeName + ' АвтотестQA');
     await this.click(this.dataPicker);
-    await this.click(this.dateClick);
-    await this.click(this.dateChouse);
+    await this.selectCurrentDate();
 
     // Заполнение импутов - Исполнители
     await this.click(this.performersTab);
@@ -120,8 +113,7 @@ export class CreateTask extends BasePage {
     await this.click(this.inputTaskDescription);
     await this.fill(this.inputTaskDescription, taskTypeRecalculation + ' АвтотестQA');
     await this.click(this.dataPicker);
-    await this.click(this.dateClick);
-    await this.click(this.dateChouse);
+    await this.selectCurrentDate();
     await this.click(this.changeButton);
     await this.click(this.addMultiple);
     await this.click(this.selectionProduct);
@@ -155,8 +147,7 @@ export class CreateTask extends BasePage {
     await this.click(this.inputTaskDescription);
     await this.fill(this.inputTaskDescription, taskTypeDataCollection + ' АвтотестQA');
     await this.click(this.dataPicker);
-    await this.click(this.dateClick);
-    await this.click(this.dateChouse);
+    await this.selectCurrentDate();
     await expect(this.page.locator('#collapse_tasks-editor-general-info')).toContainText(
       'ЛИСТОВКИ ЗАКАЗА ТАКСИ MAXIM',
     );
@@ -186,8 +177,7 @@ export class CreateTask extends BasePage {
     await this.click(this.inputTaskDescription);
     await this.fill(this.inputTaskDescription, taskTypeInventory + ' АвтотестQA');
     await this.click(this.dataPicker);
-    await this.click(this.dateClick);
-    await this.click(this.dateChouse);
+    await this.selectCurrentDate();
     await this.optionalFields(); // Заполнение не обязательных полей
 
     // Заполнение полей вкладки "Исполнители"
