@@ -1,16 +1,9 @@
 import { expect } from '@playwright/test';
 import { BasePage } from './base.page';
 
-export class CreateTask extends BasePage {
+export class TemplateList extends BasePage {
   constructor(page) {
     super(page);
-
-    // Получение сегодняшней даты для выбора ее в окне календаря при создани задачи
-    const today = new Date();
-    const day = today.getDate();
-
-    // Подстановка даты в задачи типа - Подготовка к инвентаризации/Пересчёт товаров
-    this.formattedDate = this.getCurrentDate();
 
     // ====== Локаторы ======
     // Переход по ссылкам меню

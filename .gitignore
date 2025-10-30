@@ -30,6 +30,7 @@ trace/
 .env
 .env.local
 .env.*.local
+/envs
 
 # VS Code
 .vscode/
