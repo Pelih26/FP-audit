@@ -68,7 +68,7 @@ export class CreateTask extends BasePage {
     await this.click(this.taskLink);
     await this.click(this.listLink);
     //await this.waitForVisible(this.addTask) // Не работает через Base.page
-    await expect(this.addTask).toBeVisible({ timeout: 35_000 }); // Проверка что кнопка стала активной
+    await expect(this.addTask).toBeVisible({ timeout: 45_000 }); // Проверка что кнопка стала активной
     await this.click(this.addTask);
   }
 

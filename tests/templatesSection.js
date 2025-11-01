@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test';
 // Импорт Faker с русской локалью
 import { fakerRU as faker } from '@faker-js/faker';
 import { MainPage, AdministrationUserPage, LoginUser } from '../src/pages/index';
-const url = 'https://audit-dev9.fix-price.ru/#/login';
 
 let text_input = faker.lorem.text();
 let mainPage;

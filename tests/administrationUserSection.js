@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { MainPage, AdministrationUserPage, LoginUser } from '../src/pages/index';
 import { GenerateData } from '../src/pages/generateData.page';
-const url = 'https://audit-dev9.fix-price.ru/#/login';
 let mainPage;
 let loginUser;
 let administrationUserPage;

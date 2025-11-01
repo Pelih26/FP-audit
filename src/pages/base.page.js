@@ -1,10 +1,12 @@
+import { config } from '../config/env.config.js';
+
 export class BasePage {
   constructor(page) {
     this.page = page;
   }
 
   // Метод открытия страницы
-  async open(url) {
+  async open(url = config.baseUrl) {
     await this.page.goto(url);
   }
 
