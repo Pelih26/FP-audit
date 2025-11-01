@@ -1,4 +1,5 @@
 import { BasePage } from './base.page';
+import { config } from '../config/env.config.js';
 
 export class LoginUser extends BasePage {
   constructor(page) {
@@ -9,7 +10,11 @@ export class LoginUser extends BasePage {
     this.ksloginButton = page.locator('#kc-login');
   }
 
-  async loginKS(username = 'admindp', password = 'RGa2EGJkaP@X') {
+  async open() {
+    await super.open(`${config.baseUrl}/#/login`);
+  }
+
+  async loginKS(username = config.username, password = config.password) {
     await this.click(this.loginButton);
     await this.fill(this.inputUserName, username);
     await this.fill(this.inputPassword, password);

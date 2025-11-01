@@ -3,7 +3,6 @@ import { test, expect } from '@playwright/test';
 import { fakerRU as faker } from '@faker-js/faker';
 import { allure } from 'allure-playwright';
 import { MainPage, AdministrationUserPage, LoginUser } from '../src/pages/index';
-const url = 'https://audit-dev9.fix-price.ru/#/login';
 let mainPage;
 let loginUser;
 let administrationUserPage;
