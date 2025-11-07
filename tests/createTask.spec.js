@@ -14,6 +14,9 @@ test.describe('create task', () => {
   });
 
   test('Тест - создание задачи с типом "Общая"', async ({ page }) => {
+    await allure.displayName('Создание задачи с типом "Общая');
+    await allure.owner('Пелихович Кирилл');
+    await allure.tags('Web interface', 'Regress');
     await app.mainPage.openMenu();
     await app.createTask.openTaskSection();
     await app.createTask.fillTask('Общая');
@@ -21,6 +24,7 @@ test.describe('create task', () => {
     await expect(page.locator('#smallbox1')).toContainText(
       'Задача будет создана в течение 15 минут',
     );
+    await page.reload();
   });
 
   test('Тест - создание задачи с типом "Фотоотчёт"', async ({ page }) => {
