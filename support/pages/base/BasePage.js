@@ -1,4 +1,4 @@
-import { config } from '../config/env.config.js';
+import { config } from '../utils/EnvHelper.js';
 
 export class BasePage {
   constructor(page) {

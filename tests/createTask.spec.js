@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { allure } from 'allure-playwright';
-import { MainPage, LoginUser, CreateTask } from '../src/pages/index';
-import { App } from '../src/pages/app.page';
+import { App } from '../support/pages/App.js';
 let app;
 
 test.describe('create task', () => {
@@ -24,7 +23,6 @@ test.describe('create task', () => {
     await expect(page.locator('#smallbox1')).toContainText(
       'Задача будет создана в течение 15 минут',
     );
-    await page.reload();
   });
 
   test('Тест - создание задачи с типом "Фотоотчёт"', async ({ page }) => {

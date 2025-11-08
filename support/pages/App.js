@@ -1,4 +1,4 @@
-import { MainPage, LoginUser, CreateTask, TemplateList } from './index';
+import { MainPage, LoginUser, CreateTask, TemplateList } from './index.js';
 
 export class App {
   constructor(page) {

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { BasePage } from './base.page';
+import { BasePage } from '../base/BasePage.js';
 
 export class TemplateList extends BasePage {
   constructor(page) {
@@ -8,7 +8,7 @@ export class TemplateList extends BasePage {
     // ====== Локаторы ======
     // Переход по ссылкам меню
     this.designerLink = page.locator('a').filter({ hasText: 'Конструктор чек-листов' });
-    this.templatesLink = page.getByRole('link', { name: 'Шаблоны' });
+    this.templatesLink = page.getByRole('link', { name: ' Шаблоны' });
 
     // checkbox актив/деактив
     this.activationFlag = page.getByRole('checkbox', { name: 'Только активные' });
