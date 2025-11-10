@@ -1,7 +1,7 @@
 import { test as base } from '@playwright/test';
 import { MainPage, LoginUser, CreateTask } from '../../support/pages/index.js';
 import { App } from '../pages/app.page.js';
-const url = 'https://audit-dev4.fix-price.ru/#/login';
+
 export const test = base.extend({
   // defaultItem: ['Something nice', { option: true }],
 
