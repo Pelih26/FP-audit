@@ -1,5 +1,5 @@
-import { BasePage } from './base.page';
-import { config } from '../config/env.config.js';
+import { BasePage } from '../base/BasePage.js';
+import { config } from '../utils/EnvHelper.js';
 
 export class LoginUser extends BasePage {
   constructor(page) {

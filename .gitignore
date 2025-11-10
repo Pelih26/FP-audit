@@ -25,6 +25,8 @@ playwright-report/
 screenshots/
 videos/
 trace/
+reports/*
+!reports/.gitkeep
 
 # Environment variables
 .env

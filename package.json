@@ -5,10 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "allureGenerate": "allure generate",
-    "allureOpen": "allure open",
     "test": "npx playwright test",
-    "debug": "npx playwright test --ui"
+    "debug": "npx playwright test --ui",
+    "allureServe": "allure serve reports/allure-results",
+    "allureGenerate": "allure generate reports/allure-results --clean -o reports/allure-report",
+    "allureOpen": "allure open reports/allure-report"
   },
   "keywords": [],
   "author": "",

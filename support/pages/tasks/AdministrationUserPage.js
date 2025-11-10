@@ -1,5 +1,5 @@
-import { BasePage } from './base.page';
-import { GenerateData } from './generateData.page';
+import { BasePage } from '../base/BasePage.js';
+import { GenerateData } from '../../testData/GenerateData.js';
 
 export class AdministrationUserPage extends BasePage {
   constructor(page) {

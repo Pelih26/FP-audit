@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { allure } from 'allure-playwright';
-import { MainPage, LoginUser, CreateTask } from '../src/pages/index';
-import { App } from '../src/pages/app.page';
+import { App } from '../support/pages/App.js';
 let app;
 
 test.describe('create task', () => {
@@ -14,6 +13,9 @@ test.describe('create task', () => {
   });
 
   test('Тест - создание задачи с типом "Общая"', async ({ page }) => {
+    await allure.displayName('Создание задачи с типом "Общая');
+    await allure.owner('Пелихович Кирилл');
+    await allure.tags('Web interface', 'Regress');
     await app.mainPage.openMenu();
     await app.createTask.openTaskSection();
     await app.createTask.fillTask('Общая');
