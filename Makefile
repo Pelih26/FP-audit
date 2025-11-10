@@ -13,5 +13,8 @@ clean:
 	cd docker && docker-compose -f docker-compose.playwright.yml down
 	rm -rf playwright-report
 
-# Полный цикл
 all: up test report
+
+# МОЖЕТ ГИТ надо прорверить 
+ci-test:
+	docker run --rm -v $(PWD):/app pelih26/web_test:0.0.1 npx playwright test
