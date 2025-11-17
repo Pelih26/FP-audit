@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { MainPage, LoginUser, TemplateList } from '../support/pages/index';
 import { App } from '../support/pages/App.js';
+import { only } from 'node:test';
 let app;
 
 test.describe('templates section', () => {
@@ -16,5 +17,6 @@ test.describe('templates section', () => {
     await app.mainPage.openMenu();
     await app.templateList.openTaskSection();
     await app.templateList.activFlag();
+    await app.templateList.verifyTemplatesActivationStatus();
   });
 });

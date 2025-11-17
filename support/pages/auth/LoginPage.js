@@ -17,6 +17,7 @@ export class LoginUser extends BasePage {
   async loginKS(username = config.username, password = config.password) {
     await this.click(this.loginButton);
     await this.fill(this.inputUserName, username);
+    await this.click(this.ksloginButton);
     await this.fill(this.inputPassword, password);
     await this.click(this.ksloginButton);
   }
