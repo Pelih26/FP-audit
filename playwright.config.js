@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { config } from './support/pages/utils/EnvHelper';
 
 /**
  * Read environment variables from file.
@@ -45,7 +46,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'], baseURL: config.baseUrl },
     },
 
     // {
