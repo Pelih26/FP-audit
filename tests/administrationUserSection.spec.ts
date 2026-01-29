@@ -12,7 +12,7 @@ let newUser: {
   fullPassword?: string;
 };
 
-test.describe.only('administration-section', () => {
+test.describe.only('Раздел Администрирование', () => {
   test.beforeEach(async ({ page }) => {
     // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
     test.setTimeout(45_000);
@@ -27,7 +27,7 @@ test.describe.only('administration-section', () => {
   /* Тест поверяет поиск пользователя по email (негативный)
     - Ожидаемый результат пользователь не найден
   */
-  test('Тест проверяет поиск несуществующего пользователя, ТК-35397', async ({ page }) => {
+  test('Проверка поиска несуществующего пользователя, ТК-35397', async ({ page }) => {
     mainPage = new MainPage(page);
     administrationUserPage = new AdministrationUserPage(page);
     await mainPage.openMenu();
