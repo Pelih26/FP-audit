@@ -11,7 +11,6 @@ let newUser: {
   lastName?: string;
   fullPassword?: string;
 };
-let url;
 
 test.describe.only('administration-section', () => {
   test.beforeEach(async ({ page }) => {
@@ -19,7 +18,7 @@ test.describe.only('administration-section', () => {
     test.setTimeout(45_000);
     mainPage = new MainPage(page);
     loginUser = new LoginUser(page);
-    await mainPage.open(url);
+    await mainPage.open();
     await loginUser.loginKS();
     // Добавил Timeout что бы тест дожидался разблокировки страницы (при стабильном деве достаточно 6 сек)
     await page.waitForTimeout(15_000);

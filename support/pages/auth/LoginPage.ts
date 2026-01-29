@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
-import { BasePage } from '../base/BasePage';
-import { EnvHelper } from '../../utils/EnvHelper';
+import { BasePage } from '../base/BasePage.js';
+import { config } from '../../utils/EnvHelper';
 
 export class LoginUser extends BasePage {
   loginButton: import('@playwright/test').Locator;
@@ -17,10 +17,10 @@ export class LoginUser extends BasePage {
   }
 
   async open(): Promise<void> {
-    await super.open(`${EnvHelper.baseUrl}/#/login`);
+    await super.open(`${config.baseUrl}/#/login`);
   }
 
-  async loginKS(username = EnvHelper.login, password = EnvHelper.password): Promise<void> {
+  async loginKS(username = config.username, password = config.password): Promise<void> {
     await this.click(this.loginButton);
     await this.fill(this.inputUserName, username);
     await this.click(this.ksloginButton);
