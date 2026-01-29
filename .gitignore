@@ -1,0 +1,46 @@
+# Playwright
+node_modules/
+test-results/
+playwright-report/
+/blob-report/
+/playwright/.cache/
+/screenshots/
+/videos/
+/trace/
+reports/*
+!reports/.gitkeep
+
+# Allure
+allure-report/
+allure-results/
+allure.config.json
+allure-results
+reports/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+/envs
+
+# VS Code
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# Config
+package-lock.json
