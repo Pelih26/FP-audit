@@ -1,6 +1,5 @@
-import { Page } from '@playwright/test';
-import { BasePage } from './BasePage';
-import { expect } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
+import { BasePage } from '@pages/base/BasePage';
 
 export class MainPage extends BasePage {
   menu: import('@playwright/test').Locator;

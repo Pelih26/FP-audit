@@ -1,6 +1,6 @@
 import { Page, expect } from '@playwright/test';
-import { BasePage } from '../base/BasePage.js';
-import { MainPage } from '../base/MainPage.js';
+import { BasePage } from '@pages/base/BasePage';
+import { MainPage } from '@pages/base/MainPage';
 
 export class TemplateList extends BasePage {
     private readonly mainPage: MainPage;

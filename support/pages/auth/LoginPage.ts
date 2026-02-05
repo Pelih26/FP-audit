@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
-import { BasePage } from '../base/BasePage.js';
-import { config } from '../../utils/EnvHelper';
+import { BasePage } from '@pages/base/BasePage';
+import { config } from '@utils/EnvHelper';
 
 export class LoginUser extends BasePage {
   loginButton: import('@playwright/test').Locator;

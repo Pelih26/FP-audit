@@ -1,10 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { App } from '../support/pages/App';
+import { App } from '@app/pages/App';
 
 let app: App;
-
-// Объект собирает название и статус создания задачи
-const createdTasks: Record<string, boolean> = {};
 
 test.describe('create task', () => {
   test.beforeEach(async ({ page }) => {

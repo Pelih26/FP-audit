@@ -1,4 +1,4 @@
-import { config } from '../../utils/EnvHelper';
+import { config } from '@utils/EnvHelper';
 import { Page, Locator } from '@playwright/test';
 
 export class BasePage {
