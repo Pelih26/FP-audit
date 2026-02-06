@@ -1,7 +1,6 @@
-import { expect } from '@playwright/test';
-import { Page } from '@playwright/test';
-import { BasePage } from '../base/BasePage';
-import { MainPage } from '../base/MainPage';
+import { Page, expect } from '@playwright/test';
+import { BasePage } from '@pages/base/BasePage';
+import { MainPage } from '@pages/base/MainPage';
 
 export class CreateTask extends BasePage {
   private readonly mainPage: MainPage;

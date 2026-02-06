@@ -1,10 +1,10 @@
 import { Page } from '@playwright/test';
-import { MainPage, LoginUser, TemplateList, CreateTask } from './index.js';
+import { MainPage, LoginPage, TemplateList, CreateTask } from './index.js';
 
 export class App {
   page: Page;
   mainPage: MainPage;
-  loginUser: LoginUser;
+  loginPage: LoginPage;
   templateList: TemplateList;
   createTask: CreateTask;
 
@@ -12,7 +12,7 @@ export class App {
   constructor(page: Page) {
     this.page = page;
     this.mainPage = new MainPage(page);
-    this.loginUser = new LoginUser(page);
+    this.loginPage = new LoginPage(page);
     this.templateList = new TemplateList(page);
     this.createTask = new CreateTask(page);
   }

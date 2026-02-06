@@ -8,9 +8,10 @@
     "baseUrl": "./",
     "paths": {
       "@pages/*": ["support/pages/*"],
-      "@utilities/*": ["support/utilities/*"],
+      "@utils/*": ["support/utils/*"],
       "@testData/*": ["support/testData/*"],
-      "@entities/*": ["support/entities/*"]
+      "@entities/*": ["support/entities/*"],
+      "@app/*": ["support/*"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

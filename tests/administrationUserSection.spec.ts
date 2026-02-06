@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { MainPage, AdministrationUserPage, LoginUser } from '../support/pages/index';
-import { GenerateData } from '../support/utils/GenerateData';
+import { MainPage, AdministrationUserPage, LoginUser } from '@app/pages/index';
+import { GenerateData } from '@utils/GenerateData';
+
 let mainPage;
 let loginUser;
 let administrationUserPage;

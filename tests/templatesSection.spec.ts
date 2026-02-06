@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { App } from '../support/pages/App';
+import { App } from '@app/pages/App';
 let app: App;
 
 test.describe('templates section', () => {

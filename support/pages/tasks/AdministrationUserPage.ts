@@ -1,5 +1,5 @@
 import { Page } from '@playwright/test';
-import { BasePage } from '../base/BasePage.js';
+import { BasePage } from '@pages/base/BasePage';
 
 export class AdministrationUserPage extends BasePage {
   // Переход по ссылкам меню
