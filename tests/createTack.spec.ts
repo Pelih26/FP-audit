@@ -4,13 +4,14 @@ import { App } from '@app/pages/App';
 let app: App;
 
 test.describe('create task', () => {
-  test.beforeEach(async ({ page }) => {
-    // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
-    test.setTimeout(85_000);
-    app = new App(page);
-    await app.mainPage.open();
-    await app.loginUser.loginKS();
-  });
+    test.beforeEach(async ({ page }) => {
+        // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
+        test.setTimeout(85_000);
+        app = new App(page);
+        await app.mainPage.open();
+    });
+
+
 
   test('Тест - создание задачи с типом "Общая"', async ({ page }) => {
     await app.createTask.openTaskSection();

@@ -4,9 +4,9 @@ import { defineConfig, devices } from '@playwright/test';
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+import dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -34,10 +34,15 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
+        {
+            name: 'setup',
+            testMatch: /.*\.setup\.ts/,
+        },
+        { name: 'chromium',
+            dependencies: ['setup'],
+            use: { ...devices['Desktop Chrome'], storageState: './tests/support/.auth/storage.json',
+            },
+        },
 /*
     {
       name: 'firefox',
