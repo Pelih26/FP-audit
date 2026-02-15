@@ -6,6 +6,7 @@ export class SideBarMenuPage extends BasePage {
     private readonly menu = this.page.locator('.minifyme');
     private readonly helper: HelperData;
 
+
     constructor(page: Page) {
         super(page);
         this.helper = new HelperData(this.page);
