@@ -12,6 +12,6 @@ export class LoginPage extends BasePage {
     }
 
     async open() {
-        await super.open(`${process.env.BASE_URL}`);
+         await super.open('/');
     }
 }
