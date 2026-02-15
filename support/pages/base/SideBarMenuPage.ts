@@ -1,7 +1,7 @@
 import { Page, expect } from '@playwright/test';
 import { BasePage } from '@pages/base/BasePage';
 
-export class MainPage extends BasePage {
+export class SideBarMenuPage extends BasePage {
     private readonly menu = this.page.locator('.minifyme');
 
     constructor(page: Page) {

@@ -1,11 +1,11 @@
 import { Page, expect } from '@playwright/test';
-import { MainPage } from '@pages/base/MainPage';
+import { SideBarMenuPage } from '@pages/base/SideBarMenuPage';
 import { HelperData } from '@utils/HelperData';
 import { TestTag } from '@pages/testData/enums/TestTag';
 import { TaskType } from '@pages/testData/enums/TaskType';
 
 export class CreateTask extends HelperData {
-    private readonly mainPage: MainPage;
+    private readonly sideBarMenuPage: SideBarMenuPage;
     private readonly formattedDate: string;
 
     private readonly taskLink = this.page.locator('a').filter({ hasText: 'Задачи' });
@@ -50,12 +50,12 @@ export class CreateTask extends HelperData {
         .filter({ hasText: /^Дополнительные параметры$/ });
     constructor(page: Page) {
         super(page);
-        this.mainPage = new MainPage(page);
+        this.sideBarMenuPage = new SideBarMenuPage(page);
         this.formattedDate = this.getCurrentDate(); // Используется метод из BasePage
     }
 
     async openTaskSection(): Promise<void> {
-        await this.mainPage.openMenu();
+        await this.sideBarMenuPage.openMenu();
         await this.taskLink.click();
         await this.listLink.click();
         await expect(this.addTask).toBeVisible({ timeout: 45_000 });

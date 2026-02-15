@@ -1,9 +1,9 @@
 import { Page, expect } from '@playwright/test';
 import { BasePage } from '@pages/base/BasePage';
-import { MainPage } from '@pages/base/MainPage';
+import { SideBarMenuPage } from '@pages/base/SideBarMenuPage';
 
 export class TemplateList extends BasePage {
-    private readonly mainPage: MainPage;
+    private readonly sideBarMenuPage: SideBarMenuPage;
 
     // ====== Локаторы ======
     // Переход по ссылкам меню
@@ -27,12 +27,12 @@ export class TemplateList extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.mainPage = new MainPage(page);
+        this.sideBarMenuPage = new SideBarMenuPage(page);
     }
 
     // ====== Переход на страницу задачи ======
     async openTaskSection(): Promise<void> {
-        await this.mainPage.openMenu();
+        await this.sideBarMenuPage.openMenu();
         await this.click(this.designerLink);
         await this.click(this.templatesLink);
     }
