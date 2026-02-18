@@ -1,6 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { SideBarMenuPage } from '@pages/base/SideBarMenuPage';
-import { HelperData } from '@utils/HelperData';
+import { HelperData } from '@utilities/HelperData';
 import { TestTag } from '@pages/testData/enums/TestTag';
 import { TaskType } from '@pages/testData/enums/TaskType';
 
@@ -58,7 +58,7 @@ export class CreateTask extends HelperData {
         await this.sideBarMenuPage.openMenu();
         await this.taskLink.click();
         await this.listLink.click();
-        await expect(this.addTask).toBeVisible({ timeout: 45_000 });
+        await this.waitForLoaderToDisappear();
         await this.addTask.click();
     }
 

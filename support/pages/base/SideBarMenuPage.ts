@@ -1,6 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { BasePage } from '@pages/base/BasePage';
-import { HelperData } from '@utils/HelperData';
+import { HelperData } from '@utilities/HelperData';
 
 export class SideBarMenuPage extends BasePage {
     private readonly menu = this.page.locator('.minifyme');
