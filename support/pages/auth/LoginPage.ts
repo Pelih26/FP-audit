@@ -12,6 +12,6 @@ export class LoginPage extends BasePage {
     }
 
     async open() {
-         await super.open('/');
+        await super.open('/');
     }
 }
