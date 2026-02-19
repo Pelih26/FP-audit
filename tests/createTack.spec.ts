@@ -6,7 +6,7 @@ let app: App;
 test.describe('create task', () => {
     test.beforeEach(async ({ page }) => {
         // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
-        test.setTimeout(85_000);
+        test.setTimeout(65_000);
         app = new App(page);
         await app.sideBarMenuPage.open();
     });

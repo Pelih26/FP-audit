@@ -1,5 +1,5 @@
 import { test as setup, expect } from '@playwright/test';
-import { EnvHelper } from '@utils/EnvHelper';
+import { EnvHelper } from '@utilities/EnvHelper';
 import { LoginPage } from '@pages/index';
 
 const adminFile = './support/.auth/storage.json';
@@ -19,6 +19,6 @@ setup('Авторизация в KeyClock', async ({ page }) => {
     expect((await responseAuth).status()).toBe(302);
 
     await page.waitForLoadState();
-    await expect(page.getByText(EnvHelper.nameApp)).toBeVisible({ timeout: 55_000 });
+    await expect(page.getByText(EnvHelper.nameApp)).toBeVisible({ timeout: 35_000 });
     await page.context().storageState({ path: adminFile });
 });
