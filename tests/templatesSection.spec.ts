@@ -7,8 +7,7 @@ test.describe('templates section', () => {
         // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
         test.setTimeout(85_000);
         app = new App(page);
-        await app.mainPage.open();
-        await app.loginUser.loginKS();
+        await app.sideBarMenuPage.open();
     });
 
     test('Тест - Проверки выдачи активных/девктивных шаблонов', async ({ page: _page }) => {

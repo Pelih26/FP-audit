@@ -8,9 +8,8 @@
     "baseUrl": "./",
     "paths": {
       "@pages/*": ["support/pages/*"],
-      "@utils/*": ["support/utils/*"],
+      "@utilities/*": ["support/utilities/*"],
       "@testData/*": ["support/testData/*"],
-      "@entities/*": ["support/entities/*"],
       "@app/*": ["support/*"]
     },
     "esModuleInterop": true,
