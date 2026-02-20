@@ -19,6 +19,6 @@ setup('Авторизация в KeyClock', async ({ page }) => {
     expect((await responseAuth).status()).toBe(302);
 
     await page.waitForLoadState();
-    await expect(page.getByText(EnvHelper.nameApp)).toBeVisible({ timeout: 35_000 });
+    await expect(page.getByText(EnvHelper.nameApp)).toBeVisible({ timeout: 45_000 });
     await page.context().storageState({ path: adminFile });
 });

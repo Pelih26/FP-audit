@@ -11,11 +11,7 @@ export class BasePage {
         await this.page.goto(path);
     }
 
-    async click(element: any): Promise<void> {
-        await element.click();
-    }
-
-    async fill(element: any, text: string): Promise<void> {
-        await element.fill(text);
+    async waitForLoaderToDisappear(): Promise<void> {
+        await this.page.waitForSelector('ajaxloader', { state: 'hidden' });
     }
 }

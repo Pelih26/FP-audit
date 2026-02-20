@@ -3,10 +3,12 @@ import { SideBarMenuPage } from '@pages/base/SideBarMenuPage';
 import { HelperData } from '@utilities/HelperData';
 import { TestTag } from '@pages/testData/enums/TestTag';
 import { TaskType } from '@pages/testData/enums/TaskType';
+import { BasePage } from '@pages/base/BasePage';
 
-export class CreateTask extends HelperData {
+export class CreateTask extends BasePage {
     private readonly sideBarMenuPage: SideBarMenuPage;
     private readonly formattedDate: string;
+    private readonly helperData: HelperData;
 
     private readonly taskLink = this.page.locator('a').filter({ hasText: 'Задачи' });
     private readonly listLink = this.page.getByRole('link', { name: 'Список задач' });
@@ -48,10 +50,12 @@ export class CreateTask extends HelperData {
     private readonly advancedSettingsTab = this.page
         .locator('div')
         .filter({ hasText: /^Дополнительные параметры$/ });
+
     constructor(page: Page) {
         super(page);
         this.sideBarMenuPage = new SideBarMenuPage(page);
-        this.formattedDate = this.getCurrentDate(); // Используется метод из BasePage
+        this.helperData = new HelperData(page);
+        this.formattedDate = this.helperData.getCurrentDate();
     }
 
     async openTaskSection(): Promise<void> {
@@ -68,11 +72,11 @@ export class CreateTask extends HelperData {
         await taskTypeOption.click();
         await this.inputTaskPriority.click();
         await this.inputTaskName.click();
-        await this.inputTaskName.fill(`${taskType} ${TestTag.QA_AUTOMATION}`);
+        await this.inputTaskName.fill(`${taskType} ${TestTag.QA_SUFFIX}`);
         await this.inputTaskDescription.click();
-        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QA_AUTOMATION}`);
+        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QA_SUFFIX}`);
         await this.dataPicker.click();
-        await this.selectCurrentDate();
+        await this.helperData.selectCurrentDate();
         await this.performersBlok();
     }
 
@@ -85,11 +89,11 @@ export class CreateTask extends HelperData {
         await this.inputTaskPriority.click();
         await expect(this.page.locator('#input-task-name')).toHaveValue(
             `Ручной пересчёт товаров от ${this.formattedDate}`);
-        await this.appendTextToInput('#input-task-name', ` ${TestTag.QA_AUTOMATION}`);
+        await this.helperData.appendTextToInput('#input-task-name', ` ${TestTag.QA_SUFFIX}`);
         await this.inputTaskDescription.click();
-        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QA_AUTOMATION}`);
+        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QA_SUFFIX}`);
         await this.dataPicker.click();
-        await this.selectCurrentDate();
+        await this.helperData.selectCurrentDate();
         await this.changeButton.click();
         await this.addMultiple.click();
         await this.selectionProduct.click();
@@ -106,11 +110,11 @@ export class CreateTask extends HelperData {
         await optionDataCollection.click();
         await this.inputTaskPriority.click();
         await expect(this.page.locator('#input-task-name')).toHaveValue('Сбор данных для производственной отчётности');
-        await this.appendTextToInput('#input-task-name', ` ${TestTag.QA_AUTOMATION}`);
+        await this.helperData.appendTextToInput('#input-task-name', ` ${TestTag.QA_SUFFIX}`);
         await this.inputTaskDescription.click();
-        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QA_AUTOMATION}`);
+        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QA_SUFFIX}`);
         await this.dataPicker.click();
-        await this.selectCurrentDate();
+        await this.helperData.selectCurrentDate();
         await expect(this.page.locator('#collapse_tasks-editor-general-info')).toContainText('ЛИСТОВКИ ЗАКАЗА ТАКСИ MAXIM');
         await this.performersBlok();
     }
@@ -121,11 +125,11 @@ export class CreateTask extends HelperData {
         await optionInventory.click();
         await this.inputTaskPriority.click();
         await expect(this.page.locator('#input-task-name')).toHaveValue(`Подготовка к инвентаризации от ${this.formattedDate}`);
-        await this.appendTextToInput('#input-task-name', ` ${TestTag.QA_AUTOMATION}`);
+        await this.helperData.appendTextToInput('#input-task-name', ` ${TestTag.QA_SUFFIX}`);
         await this.inputTaskDescription.click();
-        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QA_AUTOMATION}`);
+        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QA_SUFFIX}`);
         await this.dataPicker.click();
-        await this.selectCurrentDate();
+        await this.helperData.selectCurrentDate();
         await this.optionalFields();
         await this.performersBlok();
     }

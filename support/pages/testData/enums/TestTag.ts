@@ -1,3 +1,4 @@
 export enum TestTag {
-    QA_AUTOMATION = 'АвтотестQA',
+    QA_SUFFIX = 'АвтотестQA',
+    TEMPLATE_NAME = 'Шаблон АвтотестQA'
 }
