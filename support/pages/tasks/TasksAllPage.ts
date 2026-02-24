@@ -50,6 +50,7 @@ export class TasksAllPage extends BasePage {
     private readonly advancedSettingsTab = this.page
         .locator('div')
         .filter({ hasText: /^Дополнительные параметры$/ });
+    readonly notificationContainer = this.page.locator('#smallbox1');
 
     constructor(page: Page) {
         super(page);

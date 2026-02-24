@@ -14,35 +14,35 @@ test.describe('create task', () => {
     test('Тест - создание задачи с типом "Общая"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTask(TaskType.Common);
-        await expect(page.locator('#smallbox1')).toContainText(
+        await expect(app.tasksAllPage.notificationContainer).toContainText(
             'Задача будет создана в течение 15 минут');
     });
 
     test('Тест - создание задачи с типом "Фотоотчёт"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTask(TaskType.PhotoReport);
-        await expect(page.locator('#smallbox1')).toContainText(
+        await expect(app.tasksAllPage.notificationContainer).toContainText(
             'Задача будет создана в течение 15 минут');
     });
 
     test('Тест - создание задачи с типом "Проверка наличия"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTask(TaskType.Forms);
-        await expect(page.locator('#smallbox1')).toContainText(
+        await expect(app.tasksAllPage.notificationContainer).toContainText(
             'Задача будет создана в течение 15 минут', { timeout: 20_000 });
     });
 
     test('Тест - создание задачи с типом "Пересчёт товара"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTaskManualRecalculation(TaskType.ManualRecount);
-        await expect(page.locator('#smallbox1')).toContainText(
+        await expect(app.tasksAllPage.notificationContainer).toContainText(
             'Задача будет создана в течение 15 минут');
     });
 
     test('Тест - создание задачи с типом "Сбор данных"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTaskManualDataCollection(TaskType.ManualDataCollection);
-        await expect(page.locator('#smallbox1')).toContainText(
+        await expect(app.tasksAllPage.notificationContainer).toContainText(
             'Задача будет создана в течение 15 минут');
     });
 
@@ -50,7 +50,7 @@ test.describe('create task', () => {
         app = new App(page);
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTaskManualInventory(TaskType.InventoryPreparation);
-        await expect(page.locator('#smallbox1')).toContainText(
+        await expect(app.tasksAllPage.notificationContainer).toContainText(
             'Задача будет создана в течение 15 минут');
     });
 });
