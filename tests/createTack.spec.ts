@@ -47,7 +47,6 @@ test.describe('create task', () => {
     });
 
     test('Тест - создание задачи с типом "Подготовка к инвентаризации"', async ({ page }) => {
-        app = new App(page);
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTaskManualInventory(TaskType.InventoryPreparation);
         await expect(app.tasksAllPage.notificationContainer).toContainText(
