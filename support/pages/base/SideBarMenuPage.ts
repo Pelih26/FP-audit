@@ -6,6 +6,7 @@ export class SideBarMenuPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
+
     }
 
     async openMenu(): Promise<void> {
