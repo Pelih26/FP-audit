@@ -3,7 +3,7 @@ import { BasePage } from '@pages/base/BasePage';
 import { SideBarMenuPage } from '@pages/base/SideBarMenuPage';
 import { TestTag } from '@pages/testData/enums/TestTag';
 
-export class TemplateList extends BasePage {
+export class TemplateWizardPage extends BasePage {
     private readonly SideBarMenuPage: SideBarMenuPage;
 
     private readonly designerLink = this.page.locator('a').filter({ hasText: 'Конструктор чек-листов' });
@@ -28,13 +28,13 @@ export class TemplateList extends BasePage {
     async createTemplate(): Promise<void> {
         await this.addTemplateButton.click();
         await this.nameTemplate.click();
-        await this.nameTemplate.fill(TestTag.TEMPLATE_NAME);
+        await this.nameTemplate.fill(TestTag.TemplateName);
         await this.createTemplateButton.click();
     }
 
     async searchTemplate(): Promise<void> {
         await this.searchInput.click();
-        await this.searchInput.fill(TestTag.TEMPLATE_NAME);
+        await this.searchInput.fill(TestTag.TemplateName);
         await this.searchInput.press('Enter');
     }
 
