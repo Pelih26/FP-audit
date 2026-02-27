@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { TaskType } from '@pages/testData/enums/TaskType';
 import { App } from '@pages/App';
+
 let app: App;
+const taskNotificationText = 'Задача будет создана в течение 15 минут';
 
 test.describe('create task', () => {
     test.beforeEach(async ({ page }) => {
@@ -14,42 +16,37 @@ test.describe('create task', () => {
     test('Тест - создание задачи с типом "Общая"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTask(TaskType.Common);
-        await expect(app.tasksAllPage.notificationContainer).toContainText(
-            'Задача будет создана в течение 15 минут');
+        await expect(app.tasksAllPage.notificationCreateTask).toContainText(taskNotificationText);
     });
 
     test('Тест - создание задачи с типом "Фотоотчёт"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTask(TaskType.PhotoReport);
-        await expect(app.tasksAllPage.notificationContainer).toContainText(
-            'Задача будет создана в течение 15 минут');
+        await expect(app.tasksAllPage.notificationCreateTask).toContainText(taskNotificationText);
     });
 
     test('Тест - создание задачи с типом "Проверка наличия"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTask(TaskType.Forms);
-        await expect(app.tasksAllPage.notificationContainer).toContainText(
-            'Задача будет создана в течение 15 минут', { timeout: 20_000 });
+        await expect(app.tasksAllPage.notificationCreateTask).toContainText(
+            taskNotificationText, { timeout: 20_000 });
     });
 
     test('Тест - создание задачи с типом "Пересчёт товара"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTaskManualRecalculation(TaskType.ManualRecount);
-        await expect(app.tasksAllPage.notificationContainer).toContainText(
-            'Задача будет создана в течение 15 минут');
+        await expect(app.tasksAllPage.notificationCreateTask).toContainText(taskNotificationText);
     });
 
     test('Тест - создание задачи с типом "Сбор данных"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTaskManualDataCollection(TaskType.ManualDataCollection);
-        await expect(app.tasksAllPage.notificationContainer).toContainText(
-            'Задача будет создана в течение 15 минут');
+        await expect(app.tasksAllPage.notificationCreateTask).toContainText(taskNotificationText);
     });
 
     test('Тест - создание задачи с типом "Подготовка к инвентаризации"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTaskManualInventory(TaskType.InventoryPreparation);
-        await expect(app.tasksAllPage.notificationContainer).toContainText(
-            'Задача будет создана в течение 15 минут');
+        await expect(app.tasksAllPage.notificationCreateTask).toContainText(taskNotificationText);
     });
 });

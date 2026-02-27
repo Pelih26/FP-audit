@@ -50,7 +50,7 @@ export class TasksAllPage extends BasePage {
     private readonly advancedSettingsTab = this.page
         .locator('div')
         .filter({ hasText: /^Дополнительные параметры$/ });
-    readonly notificationContainer = this.page.locator('#smallbox1');
+    readonly notificationCreateTask = this.page.locator('#smallbox1');
 
     constructor(page: Page) {
         super(page);
@@ -67,93 +67,94 @@ export class TasksAllPage extends BasePage {
         await this.addTask.click();
     }
 
-    async fillTask(taskType: TaskType): Promise<void> {
+    private async selectTaskType(taskType: TaskType): Promise<void> {
         await this.inputTaskType.click();
-        const taskTypeOption = this.page.getByRole('option', { name: taskType });
-        await taskTypeOption.click();
-        await this.inputTaskPriority.click();
+        await this.page.getByRole('option', { name: taskType }).click();
+    }
+
+    private async fillNameAndDescription(name: string, description: string): Promise<void> {
         await this.inputTaskName.click();
-        await this.inputTaskName.fill(`${taskType} ${TestTag.QaSuffix}`);
+        await this.inputTaskName.fill(name);
         await this.inputTaskDescription.click();
-        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QaSuffix}`);
+        await this.inputTaskDescription.fill(description);
+    }
+
+    private async selectCurrentDate(): Promise<void> {
         await this.dataPicker.click();
         await this.helperData.selectCurrentDate();
-        await this.performersBlok();
     }
 
-    async fillTaskManualRecalculation(taskType: TaskType): Promise<void> {
-        await this.inputTaskType.click();
-        const optionRecalculation = this.page.getByRole('option', {
-            name: taskType,
-        });
-        await optionRecalculation.click();
-        await this.inputTaskPriority.click();
-        await expect(this.page.locator('#input-task-name')).toHaveValue(
-            `Ручной пересчёт товаров от ${this.formattedDate}`);
-        await this.helperData.appendTextToInput('#input-task-name', ` ${TestTag.QaSuffix}`);
-        await this.inputTaskDescription.click();
-        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QaSuffix}`);
-        await this.dataPicker.click();
-        await this.helperData.selectCurrentDate();
-        await this.changeButton.click();
-        await this.addMultiple.click();
-        await this.selectionProduct.click();
-        await this.selectionProduct.fill('000000000005562008');
-        await this.onList.click();
-        await this.page.waitForTimeout(600);
-        await this.applButton.click();
-        await this.performersBlok();
-    }
-
-    async fillTaskManualDataCollection(taskType: TaskType): Promise<void> {
-        await this.inputTaskType.click();
-        const optionDataCollection = this.page.getByRole('option', { name: taskType });
-        await optionDataCollection.click();
-        await this.inputTaskPriority.click();
-        await expect(this.page.locator('#input-task-name')).toHaveValue('Сбор данных для производственной отчётности');
-        await this.helperData.appendTextToInput('#input-task-name', ` ${TestTag.QaSuffix}`);
-        await this.inputTaskDescription.click();
-        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QaSuffix}`);
-        await this.dataPicker.click();
-        await this.helperData.selectCurrentDate();
-        await expect(this.page.locator('#collapse_tasks-editor-general-info')).toContainText('ЛИСТОВКИ ЗАКАЗА ТАКСИ MAXIM');
-        await this.performersBlok();
-    }
-
-    async fillTaskManualInventory(taskType: TaskType): Promise<void> {
-        await this.inputTaskType.click();
-        const optionInventory = this.page.getByRole('option', { name:taskType });
-        await optionInventory.click();
-        await this.inputTaskPriority.click();
-        await expect(this.page.locator('#input-task-name')).toHaveValue(`Подготовка к инвентаризации от ${this.formattedDate}`);
-        await this.helperData.appendTextToInput('#input-task-name', ` ${TestTag.QaSuffix}`);
-        await this.inputTaskDescription.click();
-        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QaSuffix}`);
-        await this.dataPicker.click();
-        await this.helperData.selectCurrentDate();
-        await this.optionalFields();
-        await this.performersBlok();
-    }
-
-    async optionalFields(): Promise<void> {
-        await this.localTime.click();
-        await this.deadLineHours.click();
-        await this.hours.click();
-        await this.deadLineMin.click();
-        //await this.advancedSettingsTab.click());
-    }
-
-    async reloadPage(taskTypeName: string): Promise<void> {
-        await this.page.reload({ waitUntil: 'networkidle' });
-        await expect(this.page.getByRole('heading', { name: taskTypeName + 'АвтотестQA' })).toBeVisible();
-    }
-
-    async performersBlok(): Promise<void> {
+    private async fillPerformersAndCreate(): Promise<void> {
         await this.performersTab.click();
         await this.storeNumberInput.click();
         await this.storeNumberInput.fill('2815');
         await this.processingButton.click();
         await this.addExecutorButton.click();
         await this.createButton.click();
+    }
+
+    async fillTask(taskType: TaskType): Promise<void> {
+        await this.selectTaskType(taskType);
+        await this.fillNameAndDescription(
+            `${taskType} ${TestTag.QaSuffix}`,
+            `${taskType} ${TestTag.QaSuffix}`
+        );
+        await this.selectCurrentDate();
+        await this.fillPerformersAndCreate();
+    }
+
+    async fillTaskManualDataCollection(taskType: TaskType): Promise<void> {
+        await this.selectTaskType(taskType);
+        await expect(this.inputTaskName)
+            .toHaveValue('Сбор данных для производственной отчётности');
+        await this.helperData.appendTextToInput('#input-task-name', ` ${TestTag.QaSuffix}`);
+        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QaSuffix}`);
+        await this.selectCurrentDate();
+        await expect(
+            this.page.locator('#collapse_tasks-editor-general-info')
+        ).toContainText('ЛИСТОВКИ ЗАКАЗА ТАКСИ MAXIM');
+        await this.fillPerformersAndCreate();
+    }
+
+    async fillTaskManualRecalculation(taskType: TaskType): Promise<void> {
+        await this.selectTaskType(taskType);
+        await expect(this.inputTaskName).toHaveValue(`Ручной пересчёт товаров от ${this.formattedDate}`);
+        await this.helperData.appendTextToInput('#input-task-name',` ${TestTag.QaSuffix}`);
+        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QaSuffix}`);
+        await this.selectCurrentDate();
+        await this.changeButton.click();
+        await this.addMultiple.click();
+        await this.selectionProduct.fill('000000000005562008');
+        await this.onList.click();
+        await this.page.waitForTimeout(600);
+        await this.applButton.click();
+        await this.fillPerformersAndCreate();
+    }
+
+    async fillTaskManualInventory(taskType: TaskType): Promise<void> {
+        await this.selectTaskType(taskType);
+
+        await expect(this.inputTaskName).toHaveValue(
+            `Подготовка к инвентаризации от ${this.formattedDate}`
+        );
+
+        await this.helperData.appendTextToInput('#input-task-name', ` ${TestTag.QaSuffix}`);
+        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QaSuffix}`);
+        await this.selectCurrentDate();
+        await this.fillOptionalFields();
+        await this.fillPerformersAndCreate();
+    }
+
+    private async fillOptionalFields(): Promise<void> {
+        await this.localTime.click();
+        await this.deadLineHours.click();
+        await this.hours.click();
+        await this.deadLineMin.click();
+    }
+
+    async reloadPage(taskTypeName: string): Promise<void> {
+        await this.page.reload({ waitUntil: 'networkidle' });
+        await expect(this.page.getByRole('heading', {
+            name: taskTypeName + TestTag.QaSuffix })).toBeVisible();
     }
 }

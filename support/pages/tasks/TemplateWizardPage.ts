@@ -13,6 +13,7 @@ export class TemplateWizardPage extends BasePage {
     private readonly addTemplateButton = this.page.getByRole('button', { name: ' Добавить' });
     private readonly nameTemplate = this.page.getByRole('textbox', { name: 'Название нового шаблона:' });
     private readonly createTemplateButton = this.page.getByRole('button', { name: 'Создать' });
+    readonly notificationCreateTemplate = this.page.locator('#smallbox1');
 
     constructor(page: Page) {
         super(page);
@@ -36,9 +37,5 @@ export class TemplateWizardPage extends BasePage {
         await this.searchInput.click();
         await this.searchInput.fill(TestTag.TemplateName);
         await this.searchInput.press('Enter');
-    }
-
-    async activFlag(): Promise<void> {
-        await this.activationFlag.uncheck();
     }
 };
