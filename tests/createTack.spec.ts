@@ -5,7 +5,7 @@ import { App } from '@pages/App';
 let app: App;
 const taskNotificationText = 'Задача будет создана в течение 15 минут';
 
-test.describe('create task', () => {
+test.describe('Раздел задачи', () => {
     test.beforeEach(async ({ page }) => {
         // Добавил общий Timeout что бы тест длилься более 20 сек, пока прогружается главная страница после логина
         test.setTimeout(65_000);
@@ -13,40 +13,45 @@ test.describe('create task', () => {
         await app.sideBarMenuPage.open();
     });
 
-    test('Тест - создание задачи с типом "Общая"', async ({ page }) => {
+    test('Создание задачи с типом "Общая"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTask(TaskType.Common);
-        await expect(app.tasksAllPage.notificationCreateTask).toContainText(taskNotificationText);
+        await expect(app.tasksAllPage.notificationCreateTask)
+            .toContainText(taskNotificationText);
     });
 
-    test('Тест - создание задачи с типом "Фотоотчёт"', async ({ page }) => {
+    test('Создание задачи с типом "Фотоотчёт"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTask(TaskType.PhotoReport);
-        await expect(app.tasksAllPage.notificationCreateTask).toContainText(taskNotificationText);
+        await expect(app.tasksAllPage.notificationCreateTask)
+            .toContainText(taskNotificationText);
     });
 
-    test('Тест - создание задачи с типом "Проверка наличия"', async ({ page }) => {
+    test('Создание задачи с типом "Проверка наличия"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTask(TaskType.Forms);
-        await expect(app.tasksAllPage.notificationCreateTask).toContainText(
-            taskNotificationText, { timeout: 20_000 });
+        await expect(app.tasksAllPage.notificationCreateTask)
+            .toContainText(taskNotificationText, { timeout: 20_000 });
     });
 
-    test('Тест - создание задачи с типом "Пересчёт товара"', async ({ page }) => {
+    test('Создание задачи с типом "Пересчёт товара"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTaskManualRecalculation(TaskType.ManualRecount);
-        await expect(app.tasksAllPage.notificationCreateTask).toContainText(taskNotificationText);
+        await expect(app.tasksAllPage.notificationCreateTask)
+            .toContainText(taskNotificationText);
     });
 
-    test('Тест - создание задачи с типом "Сбор данных"', async ({ page }) => {
+    test('Создание задачи с типом "Сбор данных"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTaskManualDataCollection(TaskType.ManualDataCollection);
-        await expect(app.tasksAllPage.notificationCreateTask).toContainText(taskNotificationText);
+        await expect(app.tasksAllPage.notificationCreateTask)
+            .toContainText(taskNotificationText);
     });
 
-    test('Тест - создание задачи с типом "Подготовка к инвентаризации"', async ({ page }) => {
+    test('Создание задачи с типом "Подготовка к инвентаризации"', async ({ page }) => {
         await app.tasksAllPage.openTaskSection();
         await app.tasksAllPage.fillTaskManualInventory(TaskType.InventoryPreparation);
-        await expect(app.tasksAllPage.notificationCreateTask).toContainText(taskNotificationText);
+        await expect(app.tasksAllPage.notificationCreateTask)
+            .toContainText(taskNotificationText);
     });
 });
