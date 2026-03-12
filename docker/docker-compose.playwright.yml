@@ -1,0 +1,21 @@
+services:
+  playwright:
+    build:
+      context: ../
+      dockerfile: docker/playwright/Dockerfile
+    container_name: ${CONTAINER_NAME_PREFIX}_playwright
+    working_dir: /usr/src/app
+    volumes:
+      - ../:/usr/src/app
+    command: sh -c "npm install && sleep infinity"
+    network_mode: "host"
+
+  http-server:
+    container_name: ${CONTAINER_NAME_PREFIX}_http_server
+    image: node:18-alpine
+    ports:
+      - "4815:4815"
+    working_dir: /usr/src/app
+    volumes:
+      - ../:/usr/src/app
+    command: sh -c "npm install -g http-server && sleep infinity"
