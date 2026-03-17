@@ -14,11 +14,11 @@ export class BasePage {
     async waitForLoaderToDisappear(): Promise<void> {
         await this.page.waitForSelector('ajaxloader', { state: 'hidden' });
     }
-
-        async click(element: any): Promise<void> {
+        // Метод для клика
+    async click(element: any): Promise<void> {
         await element.click();
     }
-
+    // Метод для заполнения полей
     async fill(element: any, text: string): Promise<void> {
         await element.fill(text);
     }
