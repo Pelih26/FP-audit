@@ -87,7 +87,7 @@ export class TasksAllPage extends BasePage {
     private async fillPerformersAndCreate(): Promise<void> {
         await this.click(this.performersTab);
         await this.click(this.storeNumberInput);
-        await this.fill(this.storeNumberInput, '2815');
+        await this.fill(this.storeNumberInput, '3015');
         await this.click(this.processingButton);
         await this.click(this.addExecutorButton);
         await this.click(this.createButton);
