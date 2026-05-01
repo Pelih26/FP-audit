@@ -59,38 +59,38 @@ export class TasksAllPage extends BasePage {
         this.formattedDate = this.helperData.getCurrentDate();
     }
 
-    async openTaskSection(): Promise<void> {
+        async openTaskSection(): Promise<void> {
         await this.sideBarMenuPage.openMenu();
-        await this.taskLink.click();
-        await this.listLink.click();
+        await this.click(this.taskLink);
+        await this.click(this.listLink);
         await this.waitForLoaderToDisappear();
-        await this.addTask.click();
+        await this.click(this.addTask);
     }
 
     private async selectTaskType(taskType: TaskType): Promise<void> {
-        await this.inputTaskType.click();
-        await this.page.getByRole('option', { name: taskType }).click();
+        await this.click(this.inputTaskType);
+        await this.click(this.page.getByRole('option', { name: taskType }));
     }
 
     private async fillNameAndDescription(name: string, description: string): Promise<void> {
-        await this.inputTaskName.click();
-        await this.inputTaskName.fill(name);
-        await this.inputTaskDescription.click();
-        await this.inputTaskDescription.fill(description);
+        await this.click(this.inputTaskName);
+        await this.fill(this.inputTaskName, name);
+        await this.click(this.inputTaskDescription);
+        await this.fill(this.inputTaskDescription, description);
     }
 
     private async selectCurrentDate(): Promise<void> {
-        await this.dataPicker.click();
+        await this.click(this.dataPicker);
         await this.helperData.selectCurrentDate();
     }
 
     private async fillPerformersAndCreate(): Promise<void> {
-        await this.performersTab.click();
-        await this.storeNumberInput.click();
-        await this.storeNumberInput.fill('2815');
-        await this.processingButton.click();
-        await this.addExecutorButton.click();
-        await this.createButton.click();
+        await this.click(this.performersTab);
+        await this.click(this.storeNumberInput);
+        await this.fill(this.storeNumberInput, '3015');
+        await this.click(this.processingButton);
+        await this.click(this.addExecutorButton);
+        await this.click(this.createButton);
     }
 
     async fillTask(taskType: TaskType): Promise<void> {
@@ -108,7 +108,7 @@ export class TasksAllPage extends BasePage {
         await expect(this.inputTaskName)
             .toHaveValue('Сбор данных для производственной отчётности');
         await this.helperData.appendTextToInput('#input-task-name', ` ${TestTag.QaSuffix}`);
-        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QaSuffix}`);
+        await this.fill(this.inputTaskDescription, `${taskType} ${TestTag.QaSuffix}`);
         await this.selectCurrentDate();
         await expect(
             this.page.locator('#collapse_tasks-editor-general-info')
@@ -120,41 +120,40 @@ export class TasksAllPage extends BasePage {
         await this.selectTaskType(taskType);
         await expect(this.inputTaskName).toHaveValue(`Ручной пересчёт товаров от ${this.formattedDate}`);
         await this.helperData.appendTextToInput('#input-task-name',` ${TestTag.QaSuffix}`);
-        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QaSuffix}`);
+        await this.fill(this.inputTaskDescription, `${taskType} ${TestTag.QaSuffix}`);
         await this.selectCurrentDate();
-        await this.changeButton.click();
-        await this.addMultiple.click();
-        await this.selectionProduct.fill('000000000005562008');
-        await this.onList.click();
+        await this.click(this.changeButton);
+        await this.click(this.addMultiple);
+        await this.fill(this.selectionProduct, '000000000005562008');
+        await this.click(this.onList);
         await this.page.waitForTimeout(600);
-        await this.applButton.click();
+        await this.click(this.applButton);
         await this.fillPerformersAndCreate();
     }
 
     async fillTaskManualInventory(taskType: TaskType): Promise<void> {
         await this.selectTaskType(taskType);
-
         await expect(this.inputTaskName).toHaveValue(
             `Подготовка к инвентаризации от ${this.formattedDate}`
         );
-
         await this.helperData.appendTextToInput('#input-task-name', ` ${TestTag.QaSuffix}`);
-        await this.inputTaskDescription.fill(`${taskType} ${TestTag.QaSuffix}`);
+        await this.fill(this.inputTaskDescription, `${taskType} ${TestTag.QaSuffix}`);
         await this.selectCurrentDate();
         await this.fillOptionalFields();
         await this.fillPerformersAndCreate();
     }
 
     private async fillOptionalFields(): Promise<void> {
-        await this.localTime.click();
-        await this.deadLineHours.click();
-        await this.hours.click();
-        await this.deadLineMin.click();
+        await this.click(this.localTime);
+        await this.click(this.deadLineHours);
+        await this.click(this.hours);
+        await this.click(this.deadLineMin);
     }
 
     async reloadPage(taskTypeName: string): Promise<void> {
         await this.page.reload({ waitUntil: 'networkidle' });
         await expect(this.page.getByRole('heading', {
-            name: taskTypeName + TestTag.QaSuffix })).toBeVisible();
+            name: taskTypeName + TestTag.QaSuffix
+        })).toBeVisible();
     }
 }
